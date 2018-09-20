@@ -56,7 +56,7 @@ public class Producto implements Serializable {
     @Column(name = "estado")
     private String estado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProducto")
-    private List<Transaccion> transaccionList;
+    private List<TransaccionProducto> transaccionProductoList;
 
     public Producto() {
     }
@@ -114,12 +114,12 @@ public class Producto implements Serializable {
     }
 
     @XmlTransient
-    public List<Transaccion> getTransaccionList() {
-        return transaccionList;
+    public List<TransaccionProducto> getTransaccionProductoList() {
+        return transaccionProductoList;
     }
 
-    public void setTransaccionList(List<Transaccion> transaccionList) {
-        this.transaccionList = transaccionList;
+    public void setTransaccionProductoList(List<TransaccionProducto> transaccionProductoList) {
+        this.transaccionProductoList = transaccionProductoList;
     }
 
     @Override

@@ -49,9 +49,9 @@ public class Devolucion implements Serializable {
     @Column(name = "fecha")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecha;
-    @JoinColumn(name = "idTransaccion", referencedColumnName = "id")
+    @JoinColumn(name = "id_transaccion_producto", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Transaccion idTransaccion;
+    private TransaccionProducto idTransaccionProducto;
 
     public Devolucion() {
     }
@@ -90,12 +90,12 @@ public class Devolucion implements Serializable {
         this.fecha = fecha;
     }
 
-    public Transaccion getIdTransaccion() {
-        return idTransaccion;
+    public TransaccionProducto getIdTransaccionProducto() {
+        return idTransaccionProducto;
     }
 
-    public void setIdTransaccion(Transaccion idTransaccion) {
-        this.idTransaccion = idTransaccion;
+    public void setIdTransaccionProducto(TransaccionProducto idTransaccionProducto) {
+        this.idTransaccionProducto = idTransaccionProducto;
     }
 
     @Override

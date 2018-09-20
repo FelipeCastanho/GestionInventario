@@ -10,7 +10,7 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import modelo.Transaccion;
+import modelo.TransaccionProducto;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -39,27 +39,27 @@ public class ProductoJpaController implements Serializable {
     }
 
     public void create(Producto producto) {
-        if (producto.getTransaccionList() == null) {
-            producto.setTransaccionList(new ArrayList<Transaccion>());
+        if (producto.getTransaccionProductoList() == null) {
+            producto.setTransaccionProductoList(new ArrayList<TransaccionProducto>());
         }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            List<Transaccion> attachedTransaccionList = new ArrayList<Transaccion>();
-            for (Transaccion transaccionListTransaccionToAttach : producto.getTransaccionList()) {
-                transaccionListTransaccionToAttach = em.getReference(transaccionListTransaccionToAttach.getClass(), transaccionListTransaccionToAttach.getId());
-                attachedTransaccionList.add(transaccionListTransaccionToAttach);
+            List<TransaccionProducto> attachedTransaccionProductoList = new ArrayList<TransaccionProducto>();
+            for (TransaccionProducto transaccionProductoListTransaccionProductoToAttach : producto.getTransaccionProductoList()) {
+                transaccionProductoListTransaccionProductoToAttach = em.getReference(transaccionProductoListTransaccionProductoToAttach.getClass(), transaccionProductoListTransaccionProductoToAttach.getId());
+                attachedTransaccionProductoList.add(transaccionProductoListTransaccionProductoToAttach);
             }
-            producto.setTransaccionList(attachedTransaccionList);
+            producto.setTransaccionProductoList(attachedTransaccionProductoList);
             em.persist(producto);
-            for (Transaccion transaccionListTransaccion : producto.getTransaccionList()) {
-                Producto oldIdProductoOfTransaccionListTransaccion = transaccionListTransaccion.getIdProducto();
-                transaccionListTransaccion.setIdProducto(producto);
-                transaccionListTransaccion = em.merge(transaccionListTransaccion);
-                if (oldIdProductoOfTransaccionListTransaccion != null) {
-                    oldIdProductoOfTransaccionListTransaccion.getTransaccionList().remove(transaccionListTransaccion);
-                    oldIdProductoOfTransaccionListTransaccion = em.merge(oldIdProductoOfTransaccionListTransaccion);
+            for (TransaccionProducto transaccionProductoListTransaccionProducto : producto.getTransaccionProductoList()) {
+                Producto oldIdProductoOfTransaccionProductoListTransaccionProducto = transaccionProductoListTransaccionProducto.getIdProducto();
+                transaccionProductoListTransaccionProducto.setIdProducto(producto);
+                transaccionProductoListTransaccionProducto = em.merge(transaccionProductoListTransaccionProducto);
+                if (oldIdProductoOfTransaccionProductoListTransaccionProducto != null) {
+                    oldIdProductoOfTransaccionProductoListTransaccionProducto.getTransaccionProductoList().remove(transaccionProductoListTransaccionProducto);
+                    oldIdProductoOfTransaccionProductoListTransaccionProducto = em.merge(oldIdProductoOfTransaccionProductoListTransaccionProducto);
                 }
             }
             em.getTransaction().commit();
@@ -76,36 +76,36 @@ public class ProductoJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             Producto persistentProducto = em.find(Producto.class, producto.getId());
-            List<Transaccion> transaccionListOld = persistentProducto.getTransaccionList();
-            List<Transaccion> transaccionListNew = producto.getTransaccionList();
+            List<TransaccionProducto> transaccionProductoListOld = persistentProducto.getTransaccionProductoList();
+            List<TransaccionProducto> transaccionProductoListNew = producto.getTransaccionProductoList();
             List<String> illegalOrphanMessages = null;
-            for (Transaccion transaccionListOldTransaccion : transaccionListOld) {
-                if (!transaccionListNew.contains(transaccionListOldTransaccion)) {
+            for (TransaccionProducto transaccionProductoListOldTransaccionProducto : transaccionProductoListOld) {
+                if (!transaccionProductoListNew.contains(transaccionProductoListOldTransaccionProducto)) {
                     if (illegalOrphanMessages == null) {
                         illegalOrphanMessages = new ArrayList<String>();
                     }
-                    illegalOrphanMessages.add("You must retain Transaccion " + transaccionListOldTransaccion + " since its idProducto field is not nullable.");
+                    illegalOrphanMessages.add("You must retain TransaccionProducto " + transaccionProductoListOldTransaccionProducto + " since its idProducto field is not nullable.");
                 }
             }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            List<Transaccion> attachedTransaccionListNew = new ArrayList<Transaccion>();
-            for (Transaccion transaccionListNewTransaccionToAttach : transaccionListNew) {
-                transaccionListNewTransaccionToAttach = em.getReference(transaccionListNewTransaccionToAttach.getClass(), transaccionListNewTransaccionToAttach.getId());
-                attachedTransaccionListNew.add(transaccionListNewTransaccionToAttach);
+            List<TransaccionProducto> attachedTransaccionProductoListNew = new ArrayList<TransaccionProducto>();
+            for (TransaccionProducto transaccionProductoListNewTransaccionProductoToAttach : transaccionProductoListNew) {
+                transaccionProductoListNewTransaccionProductoToAttach = em.getReference(transaccionProductoListNewTransaccionProductoToAttach.getClass(), transaccionProductoListNewTransaccionProductoToAttach.getId());
+                attachedTransaccionProductoListNew.add(transaccionProductoListNewTransaccionProductoToAttach);
             }
-            transaccionListNew = attachedTransaccionListNew;
-            producto.setTransaccionList(transaccionListNew);
+            transaccionProductoListNew = attachedTransaccionProductoListNew;
+            producto.setTransaccionProductoList(transaccionProductoListNew);
             producto = em.merge(producto);
-            for (Transaccion transaccionListNewTransaccion : transaccionListNew) {
-                if (!transaccionListOld.contains(transaccionListNewTransaccion)) {
-                    Producto oldIdProductoOfTransaccionListNewTransaccion = transaccionListNewTransaccion.getIdProducto();
-                    transaccionListNewTransaccion.setIdProducto(producto);
-                    transaccionListNewTransaccion = em.merge(transaccionListNewTransaccion);
-                    if (oldIdProductoOfTransaccionListNewTransaccion != null && !oldIdProductoOfTransaccionListNewTransaccion.equals(producto)) {
-                        oldIdProductoOfTransaccionListNewTransaccion.getTransaccionList().remove(transaccionListNewTransaccion);
-                        oldIdProductoOfTransaccionListNewTransaccion = em.merge(oldIdProductoOfTransaccionListNewTransaccion);
+            for (TransaccionProducto transaccionProductoListNewTransaccionProducto : transaccionProductoListNew) {
+                if (!transaccionProductoListOld.contains(transaccionProductoListNewTransaccionProducto)) {
+                    Producto oldIdProductoOfTransaccionProductoListNewTransaccionProducto = transaccionProductoListNewTransaccionProducto.getIdProducto();
+                    transaccionProductoListNewTransaccionProducto.setIdProducto(producto);
+                    transaccionProductoListNewTransaccionProducto = em.merge(transaccionProductoListNewTransaccionProducto);
+                    if (oldIdProductoOfTransaccionProductoListNewTransaccionProducto != null && !oldIdProductoOfTransaccionProductoListNewTransaccionProducto.equals(producto)) {
+                        oldIdProductoOfTransaccionProductoListNewTransaccionProducto.getTransaccionProductoList().remove(transaccionProductoListNewTransaccionProducto);
+                        oldIdProductoOfTransaccionProductoListNewTransaccionProducto = em.merge(oldIdProductoOfTransaccionProductoListNewTransaccionProducto);
                     }
                 }
             }
@@ -139,12 +139,12 @@ public class ProductoJpaController implements Serializable {
                 throw new NonexistentEntityException("The producto with id " + id + " no longer exists.", enfe);
             }
             List<String> illegalOrphanMessages = null;
-            List<Transaccion> transaccionListOrphanCheck = producto.getTransaccionList();
-            for (Transaccion transaccionListOrphanCheckTransaccion : transaccionListOrphanCheck) {
+            List<TransaccionProducto> transaccionProductoListOrphanCheck = producto.getTransaccionProductoList();
+            for (TransaccionProducto transaccionProductoListOrphanCheckTransaccionProducto : transaccionProductoListOrphanCheck) {
                 if (illegalOrphanMessages == null) {
                     illegalOrphanMessages = new ArrayList<String>();
                 }
-                illegalOrphanMessages.add("This Producto (" + producto + ") cannot be destroyed since the Transaccion " + transaccionListOrphanCheckTransaccion + " in its transaccionList field has a non-nullable idProducto field.");
+                illegalOrphanMessages.add("This Producto (" + producto + ") cannot be destroyed since the TransaccionProducto " + transaccionProductoListOrphanCheckTransaccionProducto + " in its transaccionProductoList field has a non-nullable idProducto field.");
             }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);

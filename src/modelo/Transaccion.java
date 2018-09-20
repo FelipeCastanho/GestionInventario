@@ -15,8 +15,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -37,8 +35,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Transaccion.findAll", query = "SELECT t FROM Transaccion t")
     , @NamedQuery(name = "Transaccion.findById", query = "SELECT t FROM Transaccion t WHERE t.id = :id")
     , @NamedQuery(name = "Transaccion.findByNombreEmpleado", query = "SELECT t FROM Transaccion t WHERE t.nombreEmpleado = :nombreEmpleado")
-    , @NamedQuery(name = "Transaccion.findByCantidad", query = "SELECT t FROM Transaccion t WHERE t.cantidad = :cantidad")
-    , @NamedQuery(name = "Transaccion.findByValorUnitario", query = "SELECT t FROM Transaccion t WHERE t.valorUnitario = :valorUnitario")
     , @NamedQuery(name = "Transaccion.findByTipo", query = "SELECT t FROM Transaccion t WHERE t.tipo = :tipo")
     , @NamedQuery(name = "Transaccion.findByFecha", query = "SELECT t FROM Transaccion t WHERE t.fecha = :fecha")})
 public class Transaccion implements Serializable {
@@ -53,12 +49,6 @@ public class Transaccion implements Serializable {
     @Column(name = "nombreEmpleado")
     private String nombreEmpleado;
     @Basic(optional = false)
-    @Column(name = "cantidad")
-    private int cantidad;
-    @Basic(optional = false)
-    @Column(name = "valorUnitario")
-    private int valorUnitario;
-    @Basic(optional = false)
     @Column(name = "tipo")
     private String tipo;
     @Basic(optional = false)
@@ -66,10 +56,7 @@ public class Transaccion implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecha;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTransaccion")
-    private List<Devolucion> devolucionList;
-    @JoinColumn(name = "idProducto", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Producto idProducto;
+    private List<TransaccionProducto> transaccionProductoList;
 
     public Transaccion() {
     }
@@ -78,11 +65,9 @@ public class Transaccion implements Serializable {
         this.id = id;
     }
 
-    public Transaccion(Integer id, String nombreEmpleado, int cantidad, int valorUnitario, String tipo, Date fecha) {
+    public Transaccion(Integer id, String nombreEmpleado, String tipo, Date fecha) {
         this.id = id;
         this.nombreEmpleado = nombreEmpleado;
-        this.cantidad = cantidad;
-        this.valorUnitario = valorUnitario;
         this.tipo = tipo;
         this.fecha = fecha;
     }
@@ -103,22 +88,6 @@ public class Transaccion implements Serializable {
         this.nombreEmpleado = nombreEmpleado;
     }
 
-    public int getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
-    }
-
-    public int getValorUnitario() {
-        return valorUnitario;
-    }
-
-    public void setValorUnitario(int valorUnitario) {
-        this.valorUnitario = valorUnitario;
-    }
-
     public String getTipo() {
         return tipo;
     }
@@ -136,20 +105,12 @@ public class Transaccion implements Serializable {
     }
 
     @XmlTransient
-    public List<Devolucion> getDevolucionList() {
-        return devolucionList;
+    public List<TransaccionProducto> getTransaccionProductoList() {
+        return transaccionProductoList;
     }
 
-    public void setDevolucionList(List<Devolucion> devolucionList) {
-        this.devolucionList = devolucionList;
-    }
-
-    public Producto getIdProducto() {
-        return idProducto;
-    }
-
-    public void setIdProducto(Producto idProducto) {
-        this.idProducto = idProducto;
+    public void setTransaccionProductoList(List<TransaccionProducto> transaccionProductoList) {
+        this.transaccionProductoList = transaccionProductoList;
     }
 
     @Override

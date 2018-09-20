@@ -15,7 +15,7 @@ import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import modelo.Devolucion;
-import modelo.Transaccion;
+import modelo.TransaccionProducto;
 import persistencia.exceptions.NonexistentEntityException;
 
 /**
@@ -41,15 +41,15 @@ public class DevolucionJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Transaccion idTransaccion = devolucion.getIdTransaccion();
-            if (idTransaccion != null) {
-                idTransaccion = em.getReference(idTransaccion.getClass(), idTransaccion.getId());
-                devolucion.setIdTransaccion(idTransaccion);
+            TransaccionProducto idTransaccionProducto = devolucion.getIdTransaccionProducto();
+            if (idTransaccionProducto != null) {
+                idTransaccionProducto = em.getReference(idTransaccionProducto.getClass(), idTransaccionProducto.getId());
+                devolucion.setIdTransaccionProducto(idTransaccionProducto);
             }
             em.persist(devolucion);
-            if (idTransaccion != null) {
-                idTransaccion.getDevolucionList().add(devolucion);
-                idTransaccion = em.merge(idTransaccion);
+            if (idTransaccionProducto != null) {
+                idTransaccionProducto.getDevolucionList().add(devolucion);
+                idTransaccionProducto = em.merge(idTransaccionProducto);
             }
             em.getTransaction().commit();
         } finally {
@@ -65,20 +65,20 @@ public class DevolucionJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             Devolucion persistentDevolucion = em.find(Devolucion.class, devolucion.getId());
-            Transaccion idTransaccionOld = persistentDevolucion.getIdTransaccion();
-            Transaccion idTransaccionNew = devolucion.getIdTransaccion();
-            if (idTransaccionNew != null) {
-                idTransaccionNew = em.getReference(idTransaccionNew.getClass(), idTransaccionNew.getId());
-                devolucion.setIdTransaccion(idTransaccionNew);
+            TransaccionProducto idTransaccionProductoOld = persistentDevolucion.getIdTransaccionProducto();
+            TransaccionProducto idTransaccionProductoNew = devolucion.getIdTransaccionProducto();
+            if (idTransaccionProductoNew != null) {
+                idTransaccionProductoNew = em.getReference(idTransaccionProductoNew.getClass(), idTransaccionProductoNew.getId());
+                devolucion.setIdTransaccionProducto(idTransaccionProductoNew);
             }
             devolucion = em.merge(devolucion);
-            if (idTransaccionOld != null && !idTransaccionOld.equals(idTransaccionNew)) {
-                idTransaccionOld.getDevolucionList().remove(devolucion);
-                idTransaccionOld = em.merge(idTransaccionOld);
+            if (idTransaccionProductoOld != null && !idTransaccionProductoOld.equals(idTransaccionProductoNew)) {
+                idTransaccionProductoOld.getDevolucionList().remove(devolucion);
+                idTransaccionProductoOld = em.merge(idTransaccionProductoOld);
             }
-            if (idTransaccionNew != null && !idTransaccionNew.equals(idTransaccionOld)) {
-                idTransaccionNew.getDevolucionList().add(devolucion);
-                idTransaccionNew = em.merge(idTransaccionNew);
+            if (idTransaccionProductoNew != null && !idTransaccionProductoNew.equals(idTransaccionProductoOld)) {
+                idTransaccionProductoNew.getDevolucionList().add(devolucion);
+                idTransaccionProductoNew = em.merge(idTransaccionProductoNew);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -109,10 +109,10 @@ public class DevolucionJpaController implements Serializable {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The devolucion with id " + id + " no longer exists.", enfe);
             }
-            Transaccion idTransaccion = devolucion.getIdTransaccion();
-            if (idTransaccion != null) {
-                idTransaccion.getDevolucionList().remove(devolucion);
-                idTransaccion = em.merge(idTransaccion);
+            TransaccionProducto idTransaccionProducto = devolucion.getIdTransaccionProducto();
+            if (idTransaccionProducto != null) {
+                idTransaccionProducto.getDevolucionList().remove(devolucion);
+                idTransaccionProducto = em.merge(idTransaccionProducto);
             }
             em.remove(devolucion);
             em.getTransaction().commit();

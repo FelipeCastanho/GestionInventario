@@ -10,8 +10,7 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import modelo.Producto;
-import modelo.Devolucion;
+import modelo.TransaccionProducto;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -30,11 +29,9 @@ public class TransaccionJpaController implements Serializable {
     public TransaccionJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
-    
     public TransaccionJpaController(){
         this.emf = Persistence.createEntityManagerFactory("TallerGestionInventarioPU");
     }
-    
     private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
@@ -42,36 +39,27 @@ public class TransaccionJpaController implements Serializable {
     }
 
     public void create(Transaccion transaccion) {
-        if (transaccion.getDevolucionList() == null) {
-            transaccion.setDevolucionList(new ArrayList<Devolucion>());
+        if (transaccion.getTransaccionProductoList() == null) {
+            transaccion.setTransaccionProductoList(new ArrayList<TransaccionProducto>());
         }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Producto idProducto = transaccion.getIdProducto();
-            if (idProducto != null) {
-                idProducto = em.getReference(idProducto.getClass(), idProducto.getId());
-                transaccion.setIdProducto(idProducto);
+            List<TransaccionProducto> attachedTransaccionProductoList = new ArrayList<TransaccionProducto>();
+            for (TransaccionProducto transaccionProductoListTransaccionProductoToAttach : transaccion.getTransaccionProductoList()) {
+                transaccionProductoListTransaccionProductoToAttach = em.getReference(transaccionProductoListTransaccionProductoToAttach.getClass(), transaccionProductoListTransaccionProductoToAttach.getId());
+                attachedTransaccionProductoList.add(transaccionProductoListTransaccionProductoToAttach);
             }
-            List<Devolucion> attachedDevolucionList = new ArrayList<Devolucion>();
-            for (Devolucion devolucionListDevolucionToAttach : transaccion.getDevolucionList()) {
-                devolucionListDevolucionToAttach = em.getReference(devolucionListDevolucionToAttach.getClass(), devolucionListDevolucionToAttach.getId());
-                attachedDevolucionList.add(devolucionListDevolucionToAttach);
-            }
-            transaccion.setDevolucionList(attachedDevolucionList);
+            transaccion.setTransaccionProductoList(attachedTransaccionProductoList);
             em.persist(transaccion);
-            if (idProducto != null) {
-                idProducto.getTransaccionList().add(transaccion);
-                idProducto = em.merge(idProducto);
-            }
-            for (Devolucion devolucionListDevolucion : transaccion.getDevolucionList()) {
-                Transaccion oldIdTransaccionOfDevolucionListDevolucion = devolucionListDevolucion.getIdTransaccion();
-                devolucionListDevolucion.setIdTransaccion(transaccion);
-                devolucionListDevolucion = em.merge(devolucionListDevolucion);
-                if (oldIdTransaccionOfDevolucionListDevolucion != null) {
-                    oldIdTransaccionOfDevolucionListDevolucion.getDevolucionList().remove(devolucionListDevolucion);
-                    oldIdTransaccionOfDevolucionListDevolucion = em.merge(oldIdTransaccionOfDevolucionListDevolucion);
+            for (TransaccionProducto transaccionProductoListTransaccionProducto : transaccion.getTransaccionProductoList()) {
+                Transaccion oldIdTransaccionOfTransaccionProductoListTransaccionProducto = transaccionProductoListTransaccionProducto.getIdTransaccion();
+                transaccionProductoListTransaccionProducto.setIdTransaccion(transaccion);
+                transaccionProductoListTransaccionProducto = em.merge(transaccionProductoListTransaccionProducto);
+                if (oldIdTransaccionOfTransaccionProductoListTransaccionProducto != null) {
+                    oldIdTransaccionOfTransaccionProductoListTransaccionProducto.getTransaccionProductoList().remove(transaccionProductoListTransaccionProducto);
+                    oldIdTransaccionOfTransaccionProductoListTransaccionProducto = em.merge(oldIdTransaccionOfTransaccionProductoListTransaccionProducto);
                 }
             }
             em.getTransaction().commit();
@@ -88,50 +76,36 @@ public class TransaccionJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             Transaccion persistentTransaccion = em.find(Transaccion.class, transaccion.getId());
-            Producto idProductoOld = persistentTransaccion.getIdProducto();
-            Producto idProductoNew = transaccion.getIdProducto();
-            List<Devolucion> devolucionListOld = persistentTransaccion.getDevolucionList();
-            List<Devolucion> devolucionListNew = transaccion.getDevolucionList();
+            List<TransaccionProducto> transaccionProductoListOld = persistentTransaccion.getTransaccionProductoList();
+            List<TransaccionProducto> transaccionProductoListNew = transaccion.getTransaccionProductoList();
             List<String> illegalOrphanMessages = null;
-            for (Devolucion devolucionListOldDevolucion : devolucionListOld) {
-                if (!devolucionListNew.contains(devolucionListOldDevolucion)) {
+            for (TransaccionProducto transaccionProductoListOldTransaccionProducto : transaccionProductoListOld) {
+                if (!transaccionProductoListNew.contains(transaccionProductoListOldTransaccionProducto)) {
                     if (illegalOrphanMessages == null) {
                         illegalOrphanMessages = new ArrayList<String>();
                     }
-                    illegalOrphanMessages.add("You must retain Devolucion " + devolucionListOldDevolucion + " since its idTransaccion field is not nullable.");
+                    illegalOrphanMessages.add("You must retain TransaccionProducto " + transaccionProductoListOldTransaccionProducto + " since its idTransaccion field is not nullable.");
                 }
             }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            if (idProductoNew != null) {
-                idProductoNew = em.getReference(idProductoNew.getClass(), idProductoNew.getId());
-                transaccion.setIdProducto(idProductoNew);
+            List<TransaccionProducto> attachedTransaccionProductoListNew = new ArrayList<TransaccionProducto>();
+            for (TransaccionProducto transaccionProductoListNewTransaccionProductoToAttach : transaccionProductoListNew) {
+                transaccionProductoListNewTransaccionProductoToAttach = em.getReference(transaccionProductoListNewTransaccionProductoToAttach.getClass(), transaccionProductoListNewTransaccionProductoToAttach.getId());
+                attachedTransaccionProductoListNew.add(transaccionProductoListNewTransaccionProductoToAttach);
             }
-            List<Devolucion> attachedDevolucionListNew = new ArrayList<Devolucion>();
-            for (Devolucion devolucionListNewDevolucionToAttach : devolucionListNew) {
-                devolucionListNewDevolucionToAttach = em.getReference(devolucionListNewDevolucionToAttach.getClass(), devolucionListNewDevolucionToAttach.getId());
-                attachedDevolucionListNew.add(devolucionListNewDevolucionToAttach);
-            }
-            devolucionListNew = attachedDevolucionListNew;
-            transaccion.setDevolucionList(devolucionListNew);
+            transaccionProductoListNew = attachedTransaccionProductoListNew;
+            transaccion.setTransaccionProductoList(transaccionProductoListNew);
             transaccion = em.merge(transaccion);
-            if (idProductoOld != null && !idProductoOld.equals(idProductoNew)) {
-                idProductoOld.getTransaccionList().remove(transaccion);
-                idProductoOld = em.merge(idProductoOld);
-            }
-            if (idProductoNew != null && !idProductoNew.equals(idProductoOld)) {
-                idProductoNew.getTransaccionList().add(transaccion);
-                idProductoNew = em.merge(idProductoNew);
-            }
-            for (Devolucion devolucionListNewDevolucion : devolucionListNew) {
-                if (!devolucionListOld.contains(devolucionListNewDevolucion)) {
-                    Transaccion oldIdTransaccionOfDevolucionListNewDevolucion = devolucionListNewDevolucion.getIdTransaccion();
-                    devolucionListNewDevolucion.setIdTransaccion(transaccion);
-                    devolucionListNewDevolucion = em.merge(devolucionListNewDevolucion);
-                    if (oldIdTransaccionOfDevolucionListNewDevolucion != null && !oldIdTransaccionOfDevolucionListNewDevolucion.equals(transaccion)) {
-                        oldIdTransaccionOfDevolucionListNewDevolucion.getDevolucionList().remove(devolucionListNewDevolucion);
-                        oldIdTransaccionOfDevolucionListNewDevolucion = em.merge(oldIdTransaccionOfDevolucionListNewDevolucion);
+            for (TransaccionProducto transaccionProductoListNewTransaccionProducto : transaccionProductoListNew) {
+                if (!transaccionProductoListOld.contains(transaccionProductoListNewTransaccionProducto)) {
+                    Transaccion oldIdTransaccionOfTransaccionProductoListNewTransaccionProducto = transaccionProductoListNewTransaccionProducto.getIdTransaccion();
+                    transaccionProductoListNewTransaccionProducto.setIdTransaccion(transaccion);
+                    transaccionProductoListNewTransaccionProducto = em.merge(transaccionProductoListNewTransaccionProducto);
+                    if (oldIdTransaccionOfTransaccionProductoListNewTransaccionProducto != null && !oldIdTransaccionOfTransaccionProductoListNewTransaccionProducto.equals(transaccion)) {
+                        oldIdTransaccionOfTransaccionProductoListNewTransaccionProducto.getTransaccionProductoList().remove(transaccionProductoListNewTransaccionProducto);
+                        oldIdTransaccionOfTransaccionProductoListNewTransaccionProducto = em.merge(oldIdTransaccionOfTransaccionProductoListNewTransaccionProducto);
                     }
                 }
             }
@@ -165,20 +139,15 @@ public class TransaccionJpaController implements Serializable {
                 throw new NonexistentEntityException("The transaccion with id " + id + " no longer exists.", enfe);
             }
             List<String> illegalOrphanMessages = null;
-            List<Devolucion> devolucionListOrphanCheck = transaccion.getDevolucionList();
-            for (Devolucion devolucionListOrphanCheckDevolucion : devolucionListOrphanCheck) {
+            List<TransaccionProducto> transaccionProductoListOrphanCheck = transaccion.getTransaccionProductoList();
+            for (TransaccionProducto transaccionProductoListOrphanCheckTransaccionProducto : transaccionProductoListOrphanCheck) {
                 if (illegalOrphanMessages == null) {
                     illegalOrphanMessages = new ArrayList<String>();
                 }
-                illegalOrphanMessages.add("This Transaccion (" + transaccion + ") cannot be destroyed since the Devolucion " + devolucionListOrphanCheckDevolucion + " in its devolucionList field has a non-nullable idTransaccion field.");
+                illegalOrphanMessages.add("This Transaccion (" + transaccion + ") cannot be destroyed since the TransaccionProducto " + transaccionProductoListOrphanCheckTransaccionProducto + " in its transaccionProductoList field has a non-nullable idTransaccion field.");
             }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
-            }
-            Producto idProducto = transaccion.getIdProducto();
-            if (idProducto != null) {
-                idProducto.getTransaccionList().remove(transaccion);
-                idProducto = em.merge(idProducto);
             }
             em.remove(transaccion);
             em.getTransaction().commit();

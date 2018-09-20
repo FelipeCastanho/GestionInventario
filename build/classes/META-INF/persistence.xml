@@ -5,6 +5,7 @@
     <class>modelo.Devolucion</class>
     <class>modelo.Producto</class>
     <class>modelo.Transaccion</class>
+    <class>modelo.TransaccionProducto</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/inventario?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
