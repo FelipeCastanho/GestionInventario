@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Transaccion.findAll", query = "SELECT t FROM Transaccion t")
     , @NamedQuery(name = "Transaccion.findById", query = "SELECT t FROM Transaccion t WHERE t.id = :id")
-    , @NamedQuery(name = "Transaccion.findByNombreEmpleado", query = "SELECT t FROM Transaccion t WHERE t.nombreEmpleado = :nombreEmpleado")
+    , @NamedQuery(name = "Transaccion.findByNombreCliente", query = "SELECT t FROM Transaccion t WHERE t.nombreCliente = :nombreCliente")
     , @NamedQuery(name = "Transaccion.findByTipo", query = "SELECT t FROM Transaccion t WHERE t.tipo = :tipo")
     , @NamedQuery(name = "Transaccion.findByFecha", query = "SELECT t FROM Transaccion t WHERE t.fecha = :fecha")})
 public class Transaccion implements Serializable {
@@ -46,8 +46,8 @@ public class Transaccion implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "nombreEmpleado")
-    private String nombreEmpleado;
+    @Column(name = "nombreCliente")
+    private String nombreCliente;
     @Basic(optional = false)
     @Column(name = "tipo")
     private String tipo;
@@ -65,9 +65,9 @@ public class Transaccion implements Serializable {
         this.id = id;
     }
 
-    public Transaccion(Integer id, String nombreEmpleado, String tipo, Date fecha) {
+    public Transaccion(Integer id, String nombreCliente, String tipo, Date fecha) {
         this.id = id;
-        this.nombreEmpleado = nombreEmpleado;
+        this.nombreCliente = nombreCliente;
         this.tipo = tipo;
         this.fecha = fecha;
     }
@@ -80,12 +80,12 @@ public class Transaccion implements Serializable {
         this.id = id;
     }
 
-    public String getNombreEmpleado() {
-        return nombreEmpleado;
+    public String getNombreCliente() {
+        return nombreCliente;
     }
 
-    public void setNombreEmpleado(String nombreEmpleado) {
-        this.nombreEmpleado = nombreEmpleado;
+    public void setNombreCliente(String nombreCliente) {
+        this.nombreCliente = nombreCliente;
     }
 
     public String getTipo() {

@@ -31,11 +31,12 @@ public class TransaccionProductoJpaController implements Serializable {
     public TransaccionProductoJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
+    private EntityManagerFactory emf = null;
+
     public TransaccionProductoJpaController(){
         this.emf = Persistence.createEntityManagerFactory("TallerGestionInventarioPU");
     }
-    private EntityManagerFactory emf = null;
-
+    
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }

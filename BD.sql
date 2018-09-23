@@ -5,10 +5,10 @@ CREATE TABLE IF NOT EXISTS producto (
   costo int(20) UNSIGNED NOT NULL,
   estado varchar(20) NOT NULL
 );
-
+ 
 CREATE TABLE IF NOT EXISTS transaccion (
   id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  nombreEmpleado varchar(80) NOT NULL,
+  nombreCliente varchar(80) NOT NULL,
   tipo varchar(20) NOT NULL,
   fecha DATETIME NOT NULL
 );
@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS transaccion_producto (
 CREATE TABLE IF NOT EXISTS devolucion (
   id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   id_transaccion_producto INT UNSIGNED NOT NULL,
-  nombreEmpleado varchar(80) NOT NULL,
+  nombreCliente varchar(80) NOT NULL,
   fecha DATETIME NOT NULL,
   FOREIGN KEY (id_transaccion_producto) REFERENCES transaccion_producto(id)
 );

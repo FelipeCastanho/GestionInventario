@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Devolucion.findAll", query = "SELECT d FROM Devolucion d")
     , @NamedQuery(name = "Devolucion.findById", query = "SELECT d FROM Devolucion d WHERE d.id = :id")
-    , @NamedQuery(name = "Devolucion.findByNombreEmpleado", query = "SELECT d FROM Devolucion d WHERE d.nombreEmpleado = :nombreEmpleado")
+    , @NamedQuery(name = "Devolucion.findByNombreCliente", query = "SELECT d FROM Devolucion d WHERE d.nombreCliente = :nombreCliente")
     , @NamedQuery(name = "Devolucion.findByFecha", query = "SELECT d FROM Devolucion d WHERE d.fecha = :fecha")})
 public class Devolucion implements Serializable {
 
@@ -43,8 +43,8 @@ public class Devolucion implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "nombreEmpleado")
-    private String nombreEmpleado;
+    @Column(name = "nombreCliente")
+    private String nombreCliente;
     @Basic(optional = false)
     @Column(name = "fecha")
     @Temporal(TemporalType.TIMESTAMP)
@@ -60,9 +60,9 @@ public class Devolucion implements Serializable {
         this.id = id;
     }
 
-    public Devolucion(Integer id, String nombreEmpleado, Date fecha) {
+    public Devolucion(Integer id, String nombreCliente, Date fecha) {
         this.id = id;
-        this.nombreEmpleado = nombreEmpleado;
+        this.nombreCliente = nombreCliente;
         this.fecha = fecha;
     }
 
@@ -74,12 +74,12 @@ public class Devolucion implements Serializable {
         this.id = id;
     }
 
-    public String getNombreEmpleado() {
-        return nombreEmpleado;
+    public String getNombreCliente() {
+        return nombreCliente;
     }
 
-    public void setNombreEmpleado(String nombreEmpleado) {
-        this.nombreEmpleado = nombreEmpleado;
+    public void setNombreCliente(String nombreCliente) {
+        this.nombreCliente = nombreCliente;
     }
 
     public Date getFecha() {

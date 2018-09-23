@@ -27,10 +27,11 @@ public class DevolucionJpaController implements Serializable {
     public DevolucionJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
+    private EntityManagerFactory emf = null;
+    
     public DevolucionJpaController(){
         this.emf = Persistence.createEntityManagerFactory("TallerGestionInventarioPU");
     }
-    private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
