@@ -263,4 +263,14 @@ public class TransaccionProductoJpaController implements Serializable {
         }
     }
     
+    public List<TransaccionProducto> findTransaccionProductoByIdTransaccion(int id){
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createNativeQuery("SELECT * FROM transaccion_producto where idTransaccion = '"+id+"';", TransaccionProducto.class);  
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+    
 }
