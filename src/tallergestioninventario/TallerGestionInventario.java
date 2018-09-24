@@ -5,10 +5,18 @@
  */
 package tallergestioninventario;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import logica.ProductoLogica;
+import logica.TransaccionLogica;
+import logica.TransaccionProductoLogica;
 import modelo.Producto;
+import modelo.Transaccion;
 
 /**
  *
@@ -19,21 +27,50 @@ public class TallerGestionInventario {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args){
-        // TODO code application logic here
-        ProductoLogica p = new ProductoLogica();
+    public static void main(String[] args) throws Exception{
         try {
-            /*Producto p1 = new Producto();
-            p1.setNombre("a");
-            p1.setCantidad(10);
-            p1.setCosto(0);
-            p.registrarProducto(p1);
+            Calendar hola = new GregorianCalendar();
+            Date fecha = hola.getTime();
+            Transaccion tr = new Transaccion();
+            tr.setNombreCliente("Maria");
+            tr.setTipo("ENTRADA");
+            tr.setFecha(fecha);
+            TransaccionLogica trLogica = new TransaccionLogica();
+            Transaccion niu = trLogica.registrarTransaccion(tr);
+            //trLogica.buscarTransaccion("Brayan", fecha);
+
+
+
+            // TODO code application logic here
+            ProductoLogica p = new ProductoLogica();
+        
+            Producto p1 = new Producto();
+            p1.setNombre("Cargador celular");
+            p1.setCantidad(5);
+            p1.setCosto(10000);
             
-            System.out.println(p.buscarProducto("c"));
-            p.eliminarProducto(p.buscarProducto("a"));
-            p.ActualizarProductos(p.buscarProducto("b"), 10, 5000, true);*/ //Esto es para agregar prodcutos al inventario
+            Producto p2 = new Producto();
+            p2.setNombre("Forro Celular");
+            p2.setCantidad(10);
+            p2.setCosto(12000);
+            
+            
+            List<Producto> productos = new ArrayList<>();
+            productos.add(p1);
+            productos.add(p2);
+            
+            TransaccionProductoLogica trp = new TransaccionProductoLogica();
+            trp.registrarTransaccionProductos(productos, niu);
+            
+            
+            
+            
+            
+            //System.out.println(p.buscarProducto("c"));
+            //p.eliminarProducto(p.buscarProducto("a"));
+            //p.ActualizarProductos(p.buscarProducto("b"), 10, 5000, true);*/ //Esto es para agregar prodcutos al inventario
             //p.ActualizarProductos(p.buscarProducto("b"), 20, 0, false); //Esto es para sacar productos del inventario
-            p.ActualizarProductos(p.buscarProducto("a"), 10, 5000, true);
+            //p.ActualizarProductos(p.buscarProducto("a"), 10, 5000, true);
         } catch (Exception ex) {
             System.out.println(ex);
         }

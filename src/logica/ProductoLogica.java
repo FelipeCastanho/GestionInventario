@@ -21,7 +21,7 @@ public class ProductoLogica {
     
     public void registrarProducto(Producto producto) throws Exception{
         //Validar el id del equipo
-        if(producto.getNombre() == "" || producto.getNombre() == null){
+        if(producto.getNombre().equals("") || producto.getNombre() == null){
             throw new Exception("El producto debe tener un nombre");
         }
         if(producto.getCantidad() < 0){
@@ -34,7 +34,7 @@ public class ProductoLogica {
         productoDAO.create(producto);
     }
     
-    public void ActualizarProductos(Producto producto, int cantidadNueva, int precioNuevo, boolean tipo) throws Exception{
+    public void actualizarProductos(Producto producto, int cantidadNueva, int precioNuevo, boolean tipo) throws Exception{
         //Validar el id del equipo
         if(cantidadNueva < 0){
             throw new Exception("Cantidad invalida");
@@ -57,7 +57,7 @@ public class ProductoLogica {
     }
     
     public Producto buscarProducto(String nombre) throws Exception{
-        if(nombre == "" || nombre == null){
+        if(nombre.equals("")){
             throw new Exception("Por favor ingrese un nombre de producto");
         }
         List<Producto> productos = productoDAO.findProductoEntities();
