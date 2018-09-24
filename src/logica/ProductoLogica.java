@@ -78,4 +78,8 @@ public class ProductoLogica {
         producto.setEstado("DE BAJA");
         productoDAO.edit(producto);
     }
+    
+    public List<Producto> listarProductos(){
+        return productoDAO.findProductoEntities();
+    }
 }

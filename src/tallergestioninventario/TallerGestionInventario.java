@@ -32,11 +32,11 @@ public class TallerGestionInventario {
         try {
             Calendar hola = new GregorianCalendar();
             Date fecha = hola.getTime();
-            Transaccion tr = new Transaccion();
+            /*Transaccion tr = new Transaccion();
             tr.setNombreCliente("Maria");
             tr.setTipo("ENTRADA");
             tr.setFecha(fecha);
-            TransaccionLogica trLogica = new TransaccionLogica();
+            TransaccionLogica trLogica = new TransaccionLogica();*/
             //Transaccion niu = trLogica.registrarTransaccion(tr);
             //trLogica.buscarTransaccion("Brayan", fecha);
 
