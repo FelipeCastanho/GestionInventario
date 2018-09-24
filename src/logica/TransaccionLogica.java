@@ -41,7 +41,7 @@ public class TransaccionLogica {
     }
     
     //Retorna la lista de transacciones que cumplen con el nombre y la fecha
-    public List<Transaccion> buscarTransaccion(String nombreCliente, Date fecha){
+    public List<Transaccion> buscarTransaccion(String nombreCliente, Date fecha) throws Exception{
         SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
         String f = sd.format(fecha);
         List<Transaccion> transacciones = transaccionDAO.findTransaccionByDate(f);
@@ -51,6 +51,9 @@ public class TransaccionLogica {
                resultado.add(transacciones.get(i));
            } 
         }
+        if(resultado.isEmpty()){
+            throw new Exception("No se encontraron transacciones");
+        }
         return resultado;
     }
     
@@ -58,4 +61,8 @@ public class TransaccionLogica {
         return transaccionDAO.findTransaccionEntities();
     }
     
+    public Transaccion buscarTransaccion(int id) throws Exception{
+        if(id < 0) throw new Exception("El  id  de transaccion debe ser mayor a 0");
+        return transaccionDAO.findTransaccion(id);
+    }
 }
