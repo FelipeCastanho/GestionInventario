@@ -7,9 +7,7 @@ package logica;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import modelo.Transaccion;
 import persistencia.TransaccionJpaController;
 import java.util.List;
@@ -54,6 +52,10 @@ public class TransaccionLogica {
            } 
         }
         return resultado;
+    }
+    
+    public List<Transaccion> listarTransacciones(){
+        return transaccionDAO.findTransaccionEntities();
     }
     
 }

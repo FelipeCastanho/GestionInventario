@@ -17,6 +17,7 @@ import logica.TransaccionLogica;
 import logica.TransaccionProductoLogica;
 import modelo.Producto;
 import modelo.Transaccion;
+import modelo.TransaccionProducto;
 
 /**
  *
@@ -36,13 +37,13 @@ public class TallerGestionInventario {
             tr.setTipo("ENTRADA");
             tr.setFecha(fecha);
             TransaccionLogica trLogica = new TransaccionLogica();
-            Transaccion niu = trLogica.registrarTransaccion(tr);
+            //Transaccion niu = trLogica.registrarTransaccion(tr);
             //trLogica.buscarTransaccion("Brayan", fecha);
 
 
 
             // TODO code application logic here
-            ProductoLogica p = new ProductoLogica();
+            /*ProductoLogica p = new ProductoLogica();
         
             Producto p1 = new Producto();
             p1.setNombre("Cargador celular");
@@ -58,13 +59,16 @@ public class TallerGestionInventario {
             List<Producto> productos = new ArrayList<>();
             productos.add(p1);
             productos.add(p2);
-            
+            */
             TransaccionProductoLogica trp = new TransaccionProductoLogica();
-            trp.registrarTransaccionProductos(productos, niu);
+            //trp.registrarTransaccionProductos(productos, niu);
             
+            List<Transaccion> transacciones = trLogica.listarTransacciones();
+            List<TransaccionProducto> transaccionesProducto = trp.listarProductosTransaccion(transacciones.get(0).getId());
             
-            
-            
+            for(int i = 0; i < transaccionesProducto.size(); i++) {
+                System.out.println(transaccionesProducto.get(i).getIdProducto());
+            }
             
             //System.out.println(p.buscarProducto("c"));
             //p.eliminarProducto(p.buscarProducto("a"));

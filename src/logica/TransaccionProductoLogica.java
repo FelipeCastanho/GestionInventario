@@ -67,6 +67,10 @@ public class TransaccionProductoLogica {
             }
         }
     }
+    
+    public List<TransaccionProducto> listarProductosTransaccion(int idTransaccion){
+        return transaccionProductoDAO.findTransaccionProductoByIdTransaccion(idTransaccion);
+    }
 }
     
 
