@@ -39,7 +39,7 @@ public class TransaccionJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Transaccion transaccion) {
+    public Transaccion create(Transaccion transaccion) {
         if (transaccion.getTransaccionProductoList() == null) {
             transaccion.setTransaccionProductoList(new ArrayList<TransaccionProducto>());
         }
@@ -69,6 +69,8 @@ public class TransaccionJpaController implements Serializable {
                 em.close();
             }
         }
+        
+        return transaccion;
     }
 
     public void edit(Transaccion transaccion) throws IllegalOrphanException, NonexistentEntityException, Exception {
@@ -200,6 +202,16 @@ public class TransaccionJpaController implements Serializable {
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
+        } finally {
+            em.close();
+        }
+    }
+    
+    public List<Transaccion> findTransaccionByDate(String fecha) {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createNativeQuery("SELECT * FROM transaccion where fecha >= '"+fecha+" 00:00:00' AND fecha <= '"+fecha+" 23:59:59';", Transaccion.class);  
+            return q.getResultList();
         } finally {
             em.close();
         }
