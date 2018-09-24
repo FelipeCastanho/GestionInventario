@@ -23,7 +23,7 @@ public class TallerGestionInventario {
         // TODO code application logic here
         ProductoLogica p = new ProductoLogica();
         try {
-            /*Producto p1 = new Producto();
+            Producto p1 = new Producto();
             p1.setNombre("a");
             p1.setCantidad(10);
             p1.setCosto(0);
@@ -31,9 +31,9 @@ public class TallerGestionInventario {
             
             System.out.println(p.buscarProducto("c"));
             p.eliminarProducto(p.buscarProducto("a"));
-            p.ActualizarProductos(p.buscarProducto("b"), 10, 5000, true);*/ //Esto es para agregar prodcutos al inventario
+            p.ActualizarProductos(p.buscarProducto("b"), 10, 5000, true); //Esto es para agregar prodcutos al inventario
             //p.ActualizarProductos(p.buscarProducto("b"), 20, 0, false); //Esto es para sacar productos del inventario
-            p.ActualizarProductos(p.buscarProducto("a"), 10, 5000, true);
+            //p.ActualizarProductos(p.buscarProducto("a"), 10, 5000, true);
         } catch (Exception ex) {
             System.out.println(ex);
         }
