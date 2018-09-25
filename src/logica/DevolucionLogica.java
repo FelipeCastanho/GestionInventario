@@ -31,6 +31,15 @@ public class DevolucionLogica {
         productoLogica = new ProductoLogica();
     }
     
+    /**
+    * Registra una {@code Devolucion} de una {@code TransaccionProducto}.
+    * Primero se valida que los parametros no sean nulos o vacios,
+    * Luego, dependiendo si la {@code TransaccionProducto} pertenece a una {@code Transaccion} de tipo ENTRADA o SALIDA 
+    * se registra una transaccion del tipo contrario. Finalmente, se registra la devolucion
+    * y se modifica el costo y cantidad de la {@code TransaccionProducto} a 0.
+    * 
+    * @param devolucion la {@code Devolucion} con los datos: Fecha, TransaccionProducto y Cliente. 
+    */
     public void registrarDevolucion(Devolucion devolucion) throws Exception{
         if(devolucion == null){
             throw new Exception("Devolucion vacia");  
@@ -69,6 +78,15 @@ public class DevolucionLogica {
         devolucionDAO.create(devolucion);
     }
     
+    /**
+    * Busca una {@code Devolucion}.
+    * Primero se valida que los parametros no sean vacios o nulos,
+    * Luego, se busca la devolucion por fecha y nombre del cliente que la realizo.
+    * 
+    * @param nombreCliente {@code String} para comparar
+    * @param fecha {@code Date} para comparar
+    * @return la lista de {@code Devolucion} filtradas con los parametros
+    */
     public List<Devolucion> buscarDevolucion(String nombreCliente, Date fecha){
         SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
         String f = sd.format(fecha);
@@ -83,6 +101,12 @@ public class DevolucionLogica {
         return resultado;
     }
     
+    
+    /**
+    * Lista toda {@code Devolucion}.
+    * 
+    * @return la lista de todos las {@code Devoluciones}
+    */ 
     public List<Devolucion> listarDevoluciones(){
         return devolucionDAO.findDevolucionEntities();
     }
