@@ -170,4 +170,13 @@ public class DevolucionJpaController implements Serializable {
         }
     }
     
+    public List<Devolucion> findDevolucionByDate(String fecha) {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createNativeQuery("SELECT * FROM devolucion where fecha >= '"+fecha+" 00:00:00' AND fecha <= '"+fecha+" 23:59:59';", Devolucion.class);  
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
 }

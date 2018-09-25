@@ -71,6 +71,23 @@ public class TransaccionProductoLogica {
     public List<TransaccionProducto> listarProductosTransaccion(int idTransaccion){
         return transaccionProductoDAO.findTransaccionProductoByIdTransaccion(idTransaccion);
     }
+    
+    public void modificarTransaccionProducto(TransaccionProducto tp) throws Exception{
+        if(tp == null){
+            throw new Exception("La transaccion de producto esta vacia");
+        }else{
+            if(tp.getIdProducto() == null) throw new Exception("Se debe ingresar un id de Producto"); 
+            if(tp.getIdTransaccion() == null) throw new Exception("Se debe ingresar un id de Transaccion");
+            if(tp.getValorUnitario() < 0) throw new Exception("Valor unitario de transaccion producto menor a 0");
+            if(tp.getCantidad() < 0) throw new Exception("Cantidad de transaccion producto menor a 0"); 
+        }
+        transaccionProductoDAO.edit(tp);
+    }
+    
+    public TransaccionProducto buscarTransaccionProducto(int id) throws Exception{
+        if(id < 0) throw new Exception("El  id debe ser mayor a 0");
+        return transaccionProductoDAO.findTransaccionProducto(id);
+    }
 }
     
 

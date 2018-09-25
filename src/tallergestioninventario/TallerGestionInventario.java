@@ -12,9 +12,11 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import logica.DevolucionLogica;
 import logica.ProductoLogica;
 import logica.TransaccionLogica;
 import logica.TransaccionProductoLogica;
+import modelo.Devolucion;
 import modelo.Producto;
 import modelo.Transaccion;
 import modelo.TransaccionProducto;
@@ -59,16 +61,21 @@ public class TallerGestionInventario {
             List<Producto> productos = new ArrayList<>();
             productos.add(p1);
             productos.add(p2);
-            */
+            
             TransaccionProductoLogica trp = new TransaccionProductoLogica();
             //trp.registrarTransaccionProductos(productos, niu);
             
             List<Transaccion> transacciones = trLogica.listarTransacciones();
             List<TransaccionProducto> transaccionesProducto = trp.listarProductosTransaccion(transacciones.get(0).getId());
             
-            for(int i = 0; i < transaccionesProducto.size(); i++) {
-                System.out.println(transaccionesProducto.get(i).getIdProducto());
-            }
+            System.out.print(transaccionesProducto.get(0).getId());
+            Devolucion devolucion = new Devolucion();
+            devolucion.setFecha(fecha);
+            devolucion.setIdTransaccionProducto(transaccionesProducto.get(0));
+            devolucion.setNombreCliente("Maria");
+            DevolucionLogica devLogica = new DevolucionLogica();
+            devLogica.registrarDevolucion(devolucion);*/
+            
             
             //System.out.println(p.buscarProducto("c"));
             //p.eliminarProducto(p.buscarProducto("a"));
