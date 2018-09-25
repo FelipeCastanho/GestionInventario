@@ -11,6 +11,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import modelo.Devolucion;
 import modelo.Producto;
 import modelo.Transaccion;
 import modelo.TransaccionProducto;
@@ -23,10 +24,12 @@ import persistencia.TransaccionJpaController;
 public class ReporteLogica {
     TransaccionLogica transaccionLogica;
     ProductoLogica productoLogica;
+    DevolucionLogica devolucionesLogica;
     
     public ReporteLogica(){
         transaccionLogica = new TransaccionLogica();
         productoLogica = new ProductoLogica();
+        devolucionesLogica = new DevolucionLogica();
     }
     
     //Esta funcion retorna un arreglo de tantas filas como productos existan en el inventario, ademas de esto cada fila tiene 4 columnas
@@ -101,5 +104,10 @@ public class ReporteLogica {
             }
         }
         return resultado;
+    }
+    
+    public int cantidadDevoluciones(){
+        List<Devolucion> devoluciones = devolucionesLogica.listarDevoluciones();
+        return devoluciones.size();
     }
 }
