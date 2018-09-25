@@ -23,7 +23,14 @@ public class TransaccionLogica {
         transaccionDAO = new TransaccionJpaController();
     }
     
-    //Retorna el Id de la transaccion registrada
+    /**
+    * Registra una {@code Transaccion}.
+    * Primero se valida que los atributos que la componen no esten vacios,
+    * Luego, se pasa como parametro a la funcion del JpaController que finalmente la crea.
+    * 
+    * @param transaccion {@code Transaccion} que se creará
+    * @return el objeto {@code Transaccion} que se creó
+    */
     public Transaccion registrarTransaccion(Transaccion transaccion) throws Exception{
         if (transaccion  == null) throw new Exception("Transaccion vacia");     
                 
@@ -40,8 +47,18 @@ public class TransaccionLogica {
         return transaccionDAO.create(transaccion);  
     }
     
-    //Retorna la lista de transacciones que cumplen con el nombre y la fecha
+    /**
+    * Busca una {@code Transaccion}.
+    * Primero se valida que los parametros no sean vacios o nulos,
+    * Luego, se busca la transaccion por fecha y nombre del cliente que realizó.
+    * 
+    * @param nombreCliente {@code String} para comparar
+    * @param fecha {@code Date} para comparar
+    * @return la lista de {@code Transaccion} filtradas con los parametros
+    */
     public List<Transaccion> buscarTransaccion(String nombreCliente, Date fecha) throws Exception{
+        if(nombreCliente.equals("")) throw new Exception("Ingrese el nombre de cliente a buscar");
+        if(fecha == null) throw new Exception("Ingrese la fecha en la que desea buscar la transacción");
         SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
         String f = sd.format(fecha);
         List<Transaccion> transacciones = transaccionDAO.findTransaccionByDate(f);
@@ -57,10 +74,21 @@ public class TransaccionLogica {
         return resultado;
     }
     
+    /**
+    * Lista los objetos {@code Transaccion}.
+    * 
+    * @return la lista de todos las {@code Transacciones}
+    */ 
     public List<Transaccion> listarTransacciones(){
         return transaccionDAO.findTransaccionEntities();
     }
     
+    /**
+    * Busca una {@code Transaccion} por su id.
+    * 
+    * @param id {@code int} para comparar
+    * @return {@code Transaccion}
+    */ 
     public Transaccion buscarTransaccion(int id) throws Exception{
         if(id < 0) throw new Exception("El  id  de transaccion debe ser mayor a 0");
         return transaccionDAO.findTransaccion(id);
