@@ -32,27 +32,27 @@ public class TallerGestionInventario {
      */
     public static void main(String[] args) throws Exception{
         try {
-            Calendar hola = new GregorianCalendar();
+            /*Calendar hola = new GregorianCalendar();
             Date fecha = hola.getTime();
             Transaccion tr = new Transaccion();
             tr.setNombreCliente("Maria");
             tr.setTipo("ENTRADA");
             tr.setFecha(fecha);
-            TransaccionLogica trLogica = new TransaccionLogica();
+            TransaccionLogica trLogica = new TransaccionLogica();*/
             //Transaccion niu = trLogica.registrarTransaccion(tr);
             //trLogica.buscarTransaccion("Brayan", fecha);
 
 
 
             // TODO code application logic here
-            /*ProductoLogica p = new ProductoLogica();
+            ProductoLogica p = new ProductoLogica();
         
             Producto p1 = new Producto();
             p1.setNombre("Cargador celular");
             p1.setCantidad(5);
             p1.setCosto(10000);
-            
-            Producto p2 = new Producto();
+            p.registrarProducto(p1);
+            /*Producto p2 = new Producto();
             p2.setNombre("Forro Celular");
             p2.setCantidad(10);
             p2.setCosto(12000);

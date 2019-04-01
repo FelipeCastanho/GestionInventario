@@ -20,7 +20,13 @@ public class Principal extends javax.swing.JFrame {
     public Principal() {
         initComponents();
         DevolucionView devoluciones = new DevolucionView();
+        ReportesView reportes = new ReportesView();
+        ProductoView producto = new ProductoView();
+        TransaccionView transaccion = new TransaccionView();
+        jTabbedPane.addTab("Productos", producto);
+        jTabbedPane.addTab("Transacciónes", transaccion);
         jTabbedPane.addTab("Devoluciones", devoluciones);
+        jTabbedPane.addTab("Reportes", reportes);
         setLocationRelativeTo(null);
         setResizable(false);
     }
@@ -42,11 +48,11 @@ public class Principal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
+            .addComponent(jTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(jTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
         );
 
         pack();

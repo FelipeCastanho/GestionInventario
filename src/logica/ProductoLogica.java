@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package logica;
+
 import java.util.List;
 import modelo.Producto;
 import persistencia.ProductoJpaController;
@@ -73,6 +75,15 @@ public class ProductoLogica {
         }
         return producto;
     }
+    
+    public Producto buscarProductoID(int id)throws Exception{
+        Producto producto = productoDAO.findProducto(id);
+        if(producto == null){
+            throw new Exception("El producto no se encuentra registrado");
+        }
+        return producto;
+    }
+    
     
     public void eliminarProducto(Producto producto) throws Exception{
         producto.setEstado("DE BAJA");

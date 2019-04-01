@@ -43,7 +43,7 @@ public class ReporteLogica {
         int cantidadProductosExistentes = productosList.get(productosList.size()-1).getId();
         int[][] resultado = new int[cantidadProductosExistentes][4];
         for (int i = 0; i < cantidadProductosExistentes; i++) { //Se llena la lista para posteriormente facilitar la suma de cantidades entrantes por cada prodcuto
-            resultado[i][0] = i;
+            resultado[i][0] = i+1;
             resultado[i][1] = 0;
             resultado[i][2] = productosList.get(i).getCosto();
             resultado[i][3] = 0;
@@ -54,8 +54,9 @@ public class ReporteLogica {
             if(transacciones.get(i).getFecha().getMonth() == mes && transacciones.get(i).getTipo().equals(tipo)){
                 List<TransaccionProducto> productos = transacciones.get(i).getTransaccionProductoList();
                 for (int j = 0; j < productos.size(); j++) {
-                    resultado[productos.get(j).getIdProducto().getId()][1] +=  productos.get(j).getCantidad();
-                    resultado[i][3] += productos.get(j).getCantidad() * productos.get(j).getValorUnitario();
+                    resultado[productos.get(j).getIdProducto().getId() - 1][1] +=  productos.get(j).getCantidad();
+                    resultado[productos.get(j).getIdProducto().getId() - 1][3] += 
+                            productos.get(j).getCantidad() * productos.get(j).getValorUnitario();
                 }             
             }
         }
@@ -69,7 +70,10 @@ public class ReporteLogica {
                 }
             }
         }
-       return resultado;
+        
+        System.out.println(resultado.length);
+        
+        return resultado;
     }
     
     //Esta funcion retorna una list de 4 posicines, las primeras dos posiciones contiene el producto mas caro y el prodcuto mas barato con su respectivo costo.
