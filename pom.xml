@@ -37,4 +37,7 @@
 	    <scope>test</scope>
 	  </dependency>
    </dependencies>
+   <properties>
+	    <runSuite>src/test/java/AllTest.class</runSuite>
+	</properties>
 </project>
