@@ -15,6 +15,9 @@
 			<resource>
 				<directory>src/modelo</directory>
 			</resource>
+			<resource>
+				<directory>src/test</directory>
+			</resource>
 		</resources>
 	</build>
    <dependencies>
