@@ -16,7 +16,7 @@
 				<directory>src/modelo</directory>
 			</resource>
 			<resource>
-				<directory>src/test</directory>
+				<directory>src/test/java</directory>
 			</resource>
 		</resources>
 	</build>
