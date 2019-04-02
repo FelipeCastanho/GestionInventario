@@ -9,11 +9,19 @@
    <version>1.0-SNAPSHOT</version>
    <name>test-junit</name>
    <url></url>
+   	<build>
+		<finalName>Modelo</finalName>
+		<resources>
+			<resource>
+				<directory>src/modelo</directory>
+			</resource>
+		</resources>
+	</build>
    <dependencies>
       <dependency>
          <groupId>junit</groupId>
          <artifactId>junit</artifactId>
-         <version>5.3.1</version>
+         <version>4.9</version>
          <scope>test</scope>
       </dependency>
    </dependencies>
