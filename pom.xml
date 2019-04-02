@@ -15,10 +15,13 @@
 			<resource>
 				<directory>src/modelo</directory>
 			</resource>
-			<resource>
-				<directory>src/test/java</directory>
-			</resource>
 		</resources>
+		<testResources>
+            <testResource>
+                <directory>src/test/java</directory>
+                <filtering>true</filtering>
+            </testResource>
+        </testResources>
 	</build>
    <dependencies>
       <dependency>
