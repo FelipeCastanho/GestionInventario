@@ -63,7 +63,7 @@ public class TransaccionLogica {
         SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
         String f = sd.format(fecha);
         List<Transaccion> transacciones = transaccionDAO.findTransaccionByDate(f);
-        List<Transaccion> resultado = new ArrayList<>();
+        List<Transaccion> resultado = new ArrayList<Transaccion>();
         for(int i = 0; i < transacciones.size(); i++) {
            if(transacciones.get(i).getNombreCliente().equals(nombreCliente)){
                resultado.add(transacciones.get(i));

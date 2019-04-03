@@ -188,7 +188,7 @@ public class DevolucionView extends javax.swing.JPanel {
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
         TransaccionLogica trLogica = new TransaccionLogica();
         
-        List<Transaccion> transacciones = new ArrayList<>();
+        List<Transaccion> transacciones = new ArrayList<Transaccion>();
         
         try {
             transacciones = trLogica.buscarTransaccion(jTextFieldNombreCliente.getText(), jDateChooser1.getDate());
@@ -262,7 +262,7 @@ public class DevolucionView extends javax.swing.JPanel {
     
     private void jButtonRealizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRealizarActionPerformed
         DefaultTableModel modelo = (DefaultTableModel) jTableTablaProductos.getModel();
-        List<TransaccionProducto> listaTransaccionProducto = new ArrayList<>();
+        List<TransaccionProducto> listaTransaccionProducto = new ArrayList<TransaccionProducto>();
         TransaccionProductoLogica tpL = new TransaccionProductoLogica();
         
         for (int i = 0; i < modelo.getRowCount(); i++) {

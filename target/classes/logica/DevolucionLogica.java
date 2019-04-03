@@ -64,7 +64,7 @@ public class DevolucionLogica {
             tdevolucion = transaccionLogica.registrarTransaccion(tdevolucion);
         }
         
-        List<Producto> productos = new ArrayList<>();
+        List<Producto> productos = new ArrayList<Producto>();
         Producto p = productoLogica.buscarProducto(tp.getIdProducto().getNombre());
         p.setCantidad(tp.getCantidad());
         p.setCosto(tp.getValorUnitario());
