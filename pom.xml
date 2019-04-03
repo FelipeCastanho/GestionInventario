@@ -13,7 +13,7 @@
 		<finalName>Modelo</finalName>
 		<resources>
 			<resource>
-				<directory>src/modelo</directory>
+				<directory>src/</directory>
 			</resource>
 		</resources>
 		<testResources>
