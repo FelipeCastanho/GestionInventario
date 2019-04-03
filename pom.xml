@@ -13,12 +13,12 @@
 		<finalName>Modelo</finalName>
 		<resources>
 			<resource>
-				<directory>${basedir}/src/</directory>
+				<directory>../src/</directory>
 			</resource>
 		</resources>
 		<testResources>
             <testResource>
-                <directory>src/test/java</directory>
+                <directory>../src/test/java</directory>
                 <filtering>true</filtering>
             </testResource>
         </testResources>
