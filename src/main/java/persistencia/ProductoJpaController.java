@@ -10,17 +10,15 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-
-import main.java.modelo.Producto;
 import main.java.modelo.TransaccionProducto;
-import main.java.persistencia.exceptions.IllegalOrphanException;
-import main.java.persistencia.exceptions.NonexistentEntityException;
-
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import main.java.modelo.Producto;
+import main.java.persistencia.exceptions.IllegalOrphanException;
+import main.java.persistencia.exceptions.NonexistentEntityException;
 
 /**
  *
@@ -32,11 +30,10 @@ public class ProductoJpaController implements Serializable {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
-
-    public ProductoJpaController(){
-        this.emf = Persistence.createEntityManagerFactory("TallerGestionInventarioPU");
-    }
     
+    public ProductoJpaController(){
+        this.emf = Persistence.createEntityManagerFactory("GestionInventarioPU");
+    }
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }

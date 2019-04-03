@@ -14,7 +14,6 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-
 import main.java.modelo.Devolucion;
 import main.java.modelo.TransaccionProducto;
 import main.java.persistencia.exceptions.NonexistentEntityException;
@@ -29,11 +28,10 @@ public class DevolucionJpaController implements Serializable {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
-    
-    public DevolucionJpaController(){
-        this.emf = Persistence.createEntityManagerFactory("TallerGestionInventarioPU");
-    }
 
+    public DevolucionJpaController(){
+        this.emf = Persistence.createEntityManagerFactory("GestionInventarioPU");
+    }
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }

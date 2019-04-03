@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package main.java.modelo;
 
 import java.io.Serializable;
@@ -23,19 +22,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- * Esta clase representa un producto teniendo en cuenta atributos tales como: nombre, cantidad, costo y estado.
- * @author Felipe.
+ *
+ * @author Felipe
  */
 @Entity
 @Table(name = "producto")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Producto.findAll", query = "SELECT p FROM Producto p"),
-    @NamedQuery(name = "Producto.findById", query = "SELECT p FROM Producto p WHERE p.id = :id"),
-    @NamedQuery(name = "Producto.findByNombre", query = "SELECT p FROM Producto p WHERE p.nombre = :nombre"),
-    @NamedQuery(name = "Producto.findByCantidad", query = "SELECT p FROM Producto p WHERE p.cantidad = :cantidad"),
-    @NamedQuery(name = "Producto.findByCosto", query = "SELECT p FROM Producto p WHERE p.costo = :costo"),
-    @NamedQuery(name = "Producto.findByEstado", query = "SELECT p FROM Producto p WHERE p.estado = :estado")})
+    @NamedQuery(name = "Producto.findAll", query = "SELECT p FROM Producto p")
+    , @NamedQuery(name = "Producto.findById", query = "SELECT p FROM Producto p WHERE p.id = :id")
+    , @NamedQuery(name = "Producto.findByNombre", query = "SELECT p FROM Producto p WHERE p.nombre = :nombre")
+    , @NamedQuery(name = "Producto.findByCantidad", query = "SELECT p FROM Producto p WHERE p.cantidad = :cantidad")
+    , @NamedQuery(name = "Producto.findByCosto", query = "SELECT p FROM Producto p WHERE p.costo = :costo")
+    , @NamedQuery(name = "Producto.findByEstado", query = "SELECT p FROM Producto p WHERE p.estado = :estado")})
 public class Producto implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -65,15 +64,7 @@ public class Producto implements Serializable {
     public Producto(Integer id) {
         this.id = id;
     }
-    
-    /**
-     * Esta función crea un objeto producto.
-     * @param id identificador del producto.
-     * @param nombre del producto.
-     * @param cantidad que se encuentra disponible en la bodega.
-     * @param costo del producto.
-     * @param estado del producto.
-     */
+
     public Producto(Integer id, String nombre, int cantidad, int costo, String estado) {
         this.id = id;
         this.nombre = nombre;
@@ -153,7 +144,7 @@ public class Producto implements Serializable {
 
     @Override
     public String toString() {
-        return "modelo.Producto[ id=" + id + " ]";
+        return "main.java.modelo.Producto[ id=" + id + " ]";
     }
     
 }

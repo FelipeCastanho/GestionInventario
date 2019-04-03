@@ -39,7 +39,8 @@ public class TransaccionProductoTestCase {
         tr.setTipo("ENTRADA");
         tr.setFecha(fecha);
         transaccionLogica = new TransaccionLogica();
-        Transaccion niu = transaccionLogica.registrarTransaccion(tr);
+        transaccion = transaccionLogica.registrarTransaccion(tr);
+       
 		
 		producto = new Producto();
 		producto.setNombre("Producto1");
@@ -64,7 +65,11 @@ public class TransaccionProductoTestCase {
 
 	@Test
 	public void testRegistrar() {
-
+		try {
+			transaccionProducto.registrarTransaccionProductos(listaProductos, transaccion);
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
 	}
 
 }

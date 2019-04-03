@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package main.java.modelo;
 
 import java.io.Serializable;
@@ -25,18 +24,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- * Esta clase representa los datos particulares de cada transaccion por producto, es decir, un objeto por cada producto en determinada transacción.
- * @author Felipe.
+ *
+ * @author Felipe
  */
 @Entity
 @Table(name = "transaccion_producto")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "TransaccionProducto.findAll", query = "SELECT t FROM TransaccionProducto t"),
-    @NamedQuery(name = "TransaccionProducto.findById", query = "SELECT t FROM TransaccionProducto t WHERE t.id = :id"),
-    @NamedQuery(name = "TransaccionProducto.findByCantidad", query = "SELECT t FROM TransaccionProducto t WHERE t.cantidad = :cantidad"),
-    @NamedQuery(name = "TransaccionProducto.findByValorUnitario", 
-    query = "SELECT t FROM TransaccionProducto t WHERE t.valorUnitario = :valorUnitario")})
+    @NamedQuery(name = "TransaccionProducto.findAll", query = "SELECT t FROM TransaccionProducto t")
+    , @NamedQuery(name = "TransaccionProducto.findById", query = "SELECT t FROM TransaccionProducto t WHERE t.id = :id")
+    , @NamedQuery(name = "TransaccionProducto.findByCantidad", query = "SELECT t FROM TransaccionProducto t WHERE t.cantidad = :cantidad")
+    , @NamedQuery(name = "TransaccionProducto.findByValorUnitario", query = "SELECT t FROM TransaccionProducto t WHERE t.valorUnitario = :valorUnitario")})
 public class TransaccionProducto implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -67,12 +65,6 @@ public class TransaccionProducto implements Serializable {
         this.id = id;
     }
 
-    /**
-     * Esta función crea un objeto transaccionProducto.
-     * @param id identificador de la transaccionProducto.
-     * @param cantidad, cantidad de un producto que hay en un transaccion.
-     * @param valor unitario, valor del producto al momneto de hacer la transacción.
-     */
     public TransaccionProducto(Integer id, int cantidad, int valorUnitario) {
         this.id = id;
         this.cantidad = cantidad;
@@ -150,7 +142,7 @@ public class TransaccionProducto implements Serializable {
 
     @Override
     public String toString() {
-        return "modelo.TransaccionProducto[ id=" + id + " ]";
+        return "main.java.modelo.TransaccionProducto[ id=" + id + " ]";
     }
     
 }

@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package main.java.modelo;
 
 import java.io.Serializable;
@@ -24,17 +23,17 @@ import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * Esta clase representa una operación de devolución de un pedido realizado anteriormente.
- * @author Felipe.
+ *
+ * @author Felipe
  */
 @Entity
 @Table(name = "devolucion")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Devolucion.findAll", query = "SELECT d FROM Devolucion d"),
-    @NamedQuery(name = "Devolucion.findById", query = "SELECT d FROM Devolucion d WHERE d.id = :id"),
-    @NamedQuery(name = "Devolucion.findByNombreCliente", query = "SELECT d FROM Devolucion d WHERE d.nombreCliente = :nombreCliente"),
-    @NamedQuery(name = "Devolucion.findByFecha", query = "SELECT d FROM Devolucion d WHERE d.fecha = :fecha")})
+    @NamedQuery(name = "Devolucion.findAll", query = "SELECT d FROM Devolucion d")
+    , @NamedQuery(name = "Devolucion.findById", query = "SELECT d FROM Devolucion d WHERE d.id = :id")
+    , @NamedQuery(name = "Devolucion.findByNombreCliente", query = "SELECT d FROM Devolucion d WHERE d.nombreCliente = :nombreCliente")
+    , @NamedQuery(name = "Devolucion.findByFecha", query = "SELECT d FROM Devolucion d WHERE d.fecha = :fecha")})
 public class Devolucion implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -60,13 +59,7 @@ public class Devolucion implements Serializable {
     public Devolucion(Integer id) {
         this.id = id;
     }
-    
-    /**
-     * Esta función crea un objeto devolución.
-     * @param id identificador de la devolución.
-     * @param nombreCliente nombre completo del cliente a quien se le asigna la devolución.
-     * @param fecha en que se hace una devolución.
-     */
+
     public Devolucion(Integer id, String nombreCliente, Date fecha) {
         this.id = id;
         this.nombreCliente = nombreCliente;
@@ -127,7 +120,7 @@ public class Devolucion implements Serializable {
 
     @Override
     public String toString() {
-        return "modelo.Devolucion[ id=" + id + " ]";
+        return "main.java.modelo.Devolucion[ id=" + id + " ]";
     }
     
 }
