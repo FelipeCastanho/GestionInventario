@@ -13,7 +13,7 @@
 		<finalName>Modelo</finalName>
 		<resources>
 			<resource>
-				<directory>src/main/java</directory>
+				<directory>src/main</directory>
 			</resource>
 		</resources>
 		<testResources>
@@ -39,5 +39,6 @@
    </dependencies>
    <properties>
 	    <runSuite>src/test/java/AllTest.class</runSuite>
+	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 </project>
