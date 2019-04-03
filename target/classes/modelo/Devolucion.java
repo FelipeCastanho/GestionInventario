@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package modelo;
+package main.java.modelo;
 
 import java.io.Serializable;
 import java.util.Date;

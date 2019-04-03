@@ -7,7 +7,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import modelo.TransaccionProducto;
+import main.java.modelo.TransaccionProducto;
 
 public class TransaccionProductoTestCase {
 
