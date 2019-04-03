@@ -30,7 +30,7 @@
 			    <configuration>
 			        <source>1.6</source>
 			        <target>1.6</target>
-			        <encoding>UTF-8</encoding>
+			        <encoding>ISO-8859-1</encoding>
 			    </configuration>
 			</plugin>
         </plugins>
@@ -48,10 +48,5 @@
 	    <version>5.0.0-M5</version>
 	    <scope>test</scope>
 	  </dependency>
-   </dependencies>
-   <properties>
-	    <runSuite>src/test/java/AllTest.class</runSuite>
-	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
-	
+   </dependencies>	
 </project>
