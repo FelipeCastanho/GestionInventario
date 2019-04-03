@@ -13,7 +13,7 @@
 		<finalName>Modelo</finalName>
 		<resources>
 			<resource>
-				<directory>src/</directory>
+				<directory>${basedir}/src/</directory>
 			</resource>
 		</resources>
 		<testResources>
