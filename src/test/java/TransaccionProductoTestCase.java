@@ -28,7 +28,7 @@ public class TransaccionProductoTestCase {
 	public void testConstructorId() {
 		int id = 1;
 		TransaccionProducto transaccionProducto = new TransaccionProducto(id);
-		assertEquals("Error al crear TransaccionProducto con id", id, transaccionProducto.getId(), 0);
+		assertEquals(id, transaccionProducto.getId(), 0);
 	}
 	
 	@Test
