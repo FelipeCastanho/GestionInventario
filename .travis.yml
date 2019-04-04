@@ -2,3 +2,7 @@ language: java
 install: true
 script:
 - mvn test
+services:
+- mysql
+before_install:
+- mysql -u root --password="" < test/travis.sql
