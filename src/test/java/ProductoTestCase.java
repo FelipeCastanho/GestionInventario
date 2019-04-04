@@ -63,7 +63,8 @@ public class ProductoTestCase {
 	
 	@Test
 	public void testBuscarProductoID() throws Exception {
-		Producto productoEncontrado = productoLogica.buscarProducto("MemoriaUSB 8GB");
+		productoLogica.registrarProducto(producto3);
+		Producto productoEncontrado = productoLogica.buscarProducto("Vidrio Protector");
 		int id = productoEncontrado.getId();
 		Producto productoEncontradoPorId = productoLogica.buscarProductoID(id);
 		assertEquals(productoEncontrado, productoEncontradoPorId);
@@ -72,6 +73,6 @@ public class ProductoTestCase {
 	@Test
 	public void testListarProductos() {
 		List productos = productoLogica.listarProductos();
-		assertEquals(3, productos.size());
+		assertEquals(6, productos.size());
 	}
 }
