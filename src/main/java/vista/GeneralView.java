@@ -13,7 +13,9 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
-
+import main.java.logica.ProductoLogica;
+import main.java.logica.ReporteLogica;
+import main.java.modelo.Producto;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -21,10 +23,6 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
-
-import main.java.logica.ProductoLogica;
-import main.java.logica.ReporteLogica;
-import main.java.modelo.Producto;
 
 /**
  *
@@ -147,7 +145,7 @@ public class GeneralView extends javax.swing.JFrame {
 
             // Creando el Grafico
             JFreeChart chart = ChartFactory.createPieChart(
-             "Gr√°fica precio productos", 
+             "Gr·fica precio productos", 
              data, 
              true, 
              true, 

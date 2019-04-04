@@ -7,7 +7,6 @@
 package main.java.logica;
 
 import java.util.List;
-
 import main.java.modelo.Producto;
 import main.java.persistencia.ProductoJpaController;
 

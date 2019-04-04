@@ -12,7 +12,9 @@ import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
+//import javax.swing.table.JTableHeader;
+//import javax.swing.table.TableColumn;
+//import javax.swing.table.TableColumnModel;
 import main.java.logica.ProductoLogica;
 import main.java.logica.TransaccionLogica;
 import main.java.logica.TransaccionProductoLogica;
@@ -279,7 +281,7 @@ public void cargarTabla(Producto producto){
 
             try {
                 tpLogica.registrarTransaccionProductos(listaproductos, transaccion);
-                JOptionPane.showMessageDialog(this, "TransacciÃ³n exitosa");
+                JOptionPane.showMessageDialog(this, "Transacción exitosa");
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "No se pudo registrar los productos asociados a esa transaccion ");
             }

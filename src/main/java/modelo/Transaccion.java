@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package main.java.modelo;
 
 import java.io.Serializable;
@@ -25,18 +26,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- *
- * @author Felipe
+ * Esta clase representa una transacción que puede determinar la entrada d un producto a la bodega o la salida de este.
+ * @author Felipe.
  */
 @Entity
 @Table(name = "transaccion")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Transaccion.findAll", query = "SELECT t FROM Transaccion t")
-    , @NamedQuery(name = "Transaccion.findById", query = "SELECT t FROM Transaccion t WHERE t.id = :id")
-    , @NamedQuery(name = "Transaccion.findByNombreCliente", query = "SELECT t FROM Transaccion t WHERE t.nombreCliente = :nombreCliente")
-    , @NamedQuery(name = "Transaccion.findByTipo", query = "SELECT t FROM Transaccion t WHERE t.tipo = :tipo")
-    , @NamedQuery(name = "Transaccion.findByFecha", query = "SELECT t FROM Transaccion t WHERE t.fecha = :fecha")})
+    @NamedQuery(name = "Transaccion.findAll", query = "SELECT t FROM Transaccion t"),
+    @NamedQuery(name = "Transaccion.findById", query = "SELECT t FROM Transaccion t WHERE t.id = :id"),
+    @NamedQuery(name = "Transaccion.findByNombreCliente", query = "SELECT t FROM Transaccion t WHERE t.nombreCliente = :nombreCliente"),
+    @NamedQuery(name = "Transaccion.findByTipo", query = "SELECT t FROM Transaccion t WHERE t.tipo = :tipo"),
+    @NamedQuery(name = "Transaccion.findByFecha", query = "SELECT t FROM Transaccion t WHERE t.fecha = :fecha")})
 public class Transaccion implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -65,6 +66,13 @@ public class Transaccion implements Serializable {
         this.id = id;
     }
 
+    /**
+     * Esta función crea un objeto transacción.
+     * @param id identificador de la transacción.
+     * @param nombreCliente nombre completo del cliente a quien se le asigna la devolución.
+     * @param tipo, determina si es una transaccion de entrada (compra) o de salida (venta).
+     * @param fecha en que se hace una devolución.
+     */
     public Transaccion(Integer id, String nombreCliente, String tipo, Date fecha) {
         this.id = id;
         this.nombreCliente = nombreCliente;
@@ -135,7 +143,7 @@ public class Transaccion implements Serializable {
 
     @Override
     public String toString() {
-        return "main.java.modelo.Transaccion[ id=" + id + " ]";
+        return "modelo.Transaccion[ id=" + id + " ]";
     }
     
 }

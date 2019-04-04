@@ -6,7 +6,6 @@
 package main.java.logica;
 
 import java.util.List;
-
 import main.java.modelo.Producto;
 import main.java.modelo.Transaccion;
 import main.java.modelo.TransaccionProducto;
@@ -60,7 +59,7 @@ public class TransaccionProductoLogica {
     
     /**
     * Valida la cantidad de unidades en una lista de {@code Producto}
-    * Si las unidades del {@code Producto} que se va a salir de inventario es mayor a lo disponible, retorna una excepciÃ³n.
+    * Si las unidades del {@code Producto} que se va a salir de inventario es mayor a lo disponible, retorna una excepción.
     * 
     * @param productos {@code List<Producto>} que contiene todos los productos de la transaccion
     */  
@@ -76,7 +75,7 @@ public class TransaccionProductoLogica {
     
     /**
     * Valida si un {@code Producto} se encuentra en inventario
-    * Si el {@code Producto} que entra a inventario no existe, se registra con las unidades de la transacciÃ³n.
+    * Si el {@code Producto} que entra a inventario no existe, se registra con las unidades de la transacción.
     * 
     * @param productos {@code List<Producto>} que contiene todos los productos de la transaccion
     */  
@@ -91,7 +90,7 @@ public class TransaccionProductoLogica {
     }
     
     /**
-    * Lista {@code TransaccionProducto} por el id de la TransacciÃ³n a la que pertenecen.
+    * Lista {@code TransaccionProducto} por el id de la Transacción a la que pertenecen.
     * 
     * @param idTransaccion {@code int} para comparar
     * @return {@code List<TransaccionProducto>}

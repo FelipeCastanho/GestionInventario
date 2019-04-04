@@ -30,10 +30,11 @@ public class ProductoJpaController implements Serializable {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
-    
+
     public ProductoJpaController(){
         this.emf = Persistence.createEntityManagerFactory("GestionInventarioPU");
     }
+    
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }

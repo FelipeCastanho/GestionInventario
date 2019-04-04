@@ -22,7 +22,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
-
 import main.java.logica.DevolucionLogica;
 import main.java.logica.ProductoLogica;
 import main.java.logica.TransaccionLogica;
@@ -201,7 +200,7 @@ public class DevolucionView extends javax.swing.JPanel {
         
         if(sizeofTransacciones(transacciones) > 0){
            optionList.setSelectedIndex(transacciones.size()- 1);
-           JOptionPane.showMessageDialog(null, optionList, "Selecciona una transacciÃ³n",
+           JOptionPane.showMessageDialog(null, optionList, "Selecciona una transacción",
                JOptionPane.QUESTION_MESSAGE);   
         }else{
             JOptionPane.showMessageDialog(this, "No se encontraron transacciones");
@@ -302,7 +301,7 @@ public class DevolucionView extends javax.swing.JPanel {
             devolucion.setNombreCliente(jTextFieldNombreCliente.getText());
             dvL.registrarDevolucion(devolucion);   
         }
-        JOptionPane.showMessageDialog(this, "DevoluciÃ³n exitosa");
+        JOptionPane.showMessageDialog(this, "Devolución exitosa");
     }
     
     private void jTextFieldNombreClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNombreClienteActionPerformed

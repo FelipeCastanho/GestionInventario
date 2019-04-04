@@ -24,7 +24,7 @@ public class Principal extends javax.swing.JFrame {
         ProductoView producto = new ProductoView();
         TransaccionView transaccion = new TransaccionView();
         jTabbedPane.addTab("Productos", producto);
-        jTabbedPane.addTab("TransacciÃ³nes", transaccion);
+        jTabbedPane.addTab("Transacciónes", transaccion);
         jTabbedPane.addTab("Devoluciones", devoluciones);
         jTabbedPane.addTab("Reportes", reportes);
         setLocationRelativeTo(null);
