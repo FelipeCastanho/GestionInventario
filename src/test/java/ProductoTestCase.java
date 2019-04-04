@@ -59,27 +59,6 @@ public class ProductoTestCase {
 		productoLogica.registrarProducto(producto2);
 		Producto productoEncontrado = productoLogica.buscarProducto("MemoriaUSB 8GB");
 		assertEquals(producto2, productoEncontrado);
-		
-	}
-	
-	@Test
-	public void testActualizarProductosEntrada() throws Exception {
-		productoLogica.registrarProducto(producto3);
-		Producto productoAntes = productoLogica.buscarProducto("Vidrio Protector");
-		productoLogica.actualizarProductos(productoAntes, 5, 6000, true);
-		productoAntes.setCantidad(20);
-	    productoAntes.setCosto(5250);
-		Producto productoDespues = productoLogica.buscarProducto("Vidrio Protector");
-		assertEquals(productoAntes, productoDespues);
-	}
-	
-	@Test
-	public void testActualizarProductosSalida() throws Exception {
-		Producto productoAntes = productoLogica.buscarProducto("Vidrio Protector");
-		productoLogica.actualizarProductos(productoAntes, 2, 0, false);
-		productoAntes.setCantidad(18);
-		Producto productoDespues = productoLogica.buscarProducto("Vidrio Protector");
-		assertEquals(productoAntes, productoDespues);
 	}
 	
 	@Test
@@ -88,13 +67,6 @@ public class ProductoTestCase {
 		int id = productoEncontrado.getId();
 		Producto productoEncontradoPorId = productoLogica.buscarProductoID(id);
 		assertEquals(productoEncontrado, productoEncontradoPorId);
-	}
-	
-	@Test
-	public void testEliminarProducto() throws Exception {
-		Producto productoEncontrado = productoLogica.buscarProducto("MemoriaUSB 8GB");
-		productoLogica.eliminarProducto(productoEncontrado);
-		assertEquals("DE BAJA", productoEncontrado.getEstado());
 	}
 	
 	@Test

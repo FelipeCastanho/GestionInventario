@@ -1,47 +1,49 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package main.java.persistencia;
 
 import java.io.Serializable;
-import javax.persistence.Query;
-import javax.persistence.EntityNotFoundException;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-import main.java.modelo.Producto;
-import main.java.modelo.Transaccion;
-import main.java.modelo.Devolucion;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import main.java.modelo.Devolucion;
+import main.java.modelo.Producto;
+import main.java.modelo.Transaccion;
 import main.java.modelo.TransaccionProducto;
 import main.java.persistencia.exceptions.IllegalOrphanException;
 import main.java.persistencia.exceptions.NonexistentEntityException;
 
 /**
- *
+ * Esta clase es la persistencia que se comunica con el modelo TransaccionProducto y su respectiva base de datos.
  * @author Felipe
  */
+
 public class TransaccionProductoJpaController implements Serializable {
 
     public TransaccionProductoJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
+    
     private EntityManagerFactory emf = null;
 
-    public TransaccionProductoJpaController(){
+    public TransaccionProductoJpaController() {
         this.emf = Persistence.createEntityManagerFactory("GestionInventarioPU");
     }
     
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
+    
+    /**
+     * Esta funcion crea un objeto relacion entre producto y transaccion en la base de datos.
+     * @param transaccionProducto objeto transaccionProducto a crear.
+     */
 
-    public TransaccionProducto create(TransaccionProducto transaccionProducto) {
+    public void create(TransaccionProducto transaccionProducto) {
         if (transaccionProducto.getDevolucionList() == null) {
             transaccionProducto.setDevolucionList(new ArrayList<Devolucion>());
         }
@@ -61,7 +63,8 @@ public class TransaccionProductoJpaController implements Serializable {
             }
             List<Devolucion> attachedDevolucionList = new ArrayList<Devolucion>();
             for (Devolucion devolucionListDevolucionToAttach : transaccionProducto.getDevolucionList()) {
-                devolucionListDevolucionToAttach = em.getReference(devolucionListDevolucionToAttach.getClass(), devolucionListDevolucionToAttach.getId());
+                devolucionListDevolucionToAttach = em.getReference(devolucionListDevolucionToAttach.getClass(), 
+                devolucionListDevolucionToAttach.getId());
                 attachedDevolucionList.add(devolucionListDevolucionToAttach);
             }
             transaccionProducto.setDevolucionList(attachedDevolucionList);
@@ -89,8 +92,13 @@ public class TransaccionProductoJpaController implements Serializable {
                 em.close();
             }
         }
-        return transaccionProducto;
     }
+    
+    /**
+     * Esta funcion permite modificar un objeto relacion entre producto y 
+     * transaccion alojado en la base de datos.
+     * @param transaccionProducto objeto transaccionProducto a modificar.
+     */
 
     public void edit(TransaccionProducto transaccionProducto) throws IllegalOrphanException, NonexistentEntityException, Exception {
         EntityManager em = null;
@@ -98,10 +106,10 @@ public class TransaccionProductoJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             TransaccionProducto persistentTransaccionProducto = em.find(TransaccionProducto.class, transaccionProducto.getId());
-            Producto idProductoOld = persistentTransaccionProducto.getIdProducto();
+            //idProducto
             Producto idProductoNew = transaccionProducto.getIdProducto();
-            Transaccion idTransaccionOld = persistentTransaccionProducto.getIdTransaccion();
-            Transaccion idTransaccionNew = transaccionProducto.getIdTransaccion();
+            //idTransaccionNew
+            //idTransaccionOld
             List<Devolucion> devolucionListOld = persistentTransaccionProducto.getDevolucionList();
             List<Devolucion> devolucionListNew = transaccionProducto.getDevolucionList();
             List<String> illegalOrphanMessages = null;
@@ -110,7 +118,8 @@ public class TransaccionProductoJpaController implements Serializable {
                     if (illegalOrphanMessages == null) {
                         illegalOrphanMessages = new ArrayList<String>();
                     }
-                    illegalOrphanMessages.add("You must retain Devolucion " + devolucionListOldDevolucion + " since its idTransaccionProducto field is not nullable.");
+                    illegalOrphanMessages.add("You must retain Devolucion " + devolucionListOldDevolucion 
+                    + " since its idTransaccionProducto field is not nullable.");
                 }
             }
             if (illegalOrphanMessages != null) {
@@ -120,18 +129,25 @@ public class TransaccionProductoJpaController implements Serializable {
                 idProductoNew = em.getReference(idProductoNew.getClass(), idProductoNew.getId());
                 transaccionProducto.setIdProducto(idProductoNew);
             }
+            
+            Transaccion idTransaccionNew = transaccionProducto.getIdTransaccion();
+            
             if (idTransaccionNew != null) {
                 idTransaccionNew = em.getReference(idTransaccionNew.getClass(), idTransaccionNew.getId());
                 transaccionProducto.setIdTransaccion(idTransaccionNew);
             }
             List<Devolucion> attachedDevolucionListNew = new ArrayList<Devolucion>();
             for (Devolucion devolucionListNewDevolucionToAttach : devolucionListNew) {
-                devolucionListNewDevolucionToAttach = em.getReference(devolucionListNewDevolucionToAttach.getClass(), devolucionListNewDevolucionToAttach.getId());
+                devolucionListNewDevolucionToAttach = 
+                em.getReference(devolucionListNewDevolucionToAttach.getClass(), devolucionListNewDevolucionToAttach.getId());
                 attachedDevolucionListNew.add(devolucionListNewDevolucionToAttach);
             }
             devolucionListNew = attachedDevolucionListNew;
             transaccionProducto.setDevolucionList(devolucionListNew);
             transaccionProducto = em.merge(transaccionProducto);
+            
+            Producto idProductoOld = persistentTransaccionProducto.getIdProducto();
+            
             if (idProductoOld != null && !idProductoOld.equals(idProductoNew)) {
                 idProductoOld.getTransaccionProductoList().remove(transaccionProducto);
                 idProductoOld = em.merge(idProductoOld);
@@ -140,6 +156,9 @@ public class TransaccionProductoJpaController implements Serializable {
                 idProductoNew.getTransaccionProductoList().add(transaccionProducto);
                 idProductoNew = em.merge(idProductoNew);
             }
+            
+            Transaccion idTransaccionOld = persistentTransaccionProducto.getIdTransaccion();
+            
             if (idTransaccionOld != null && !idTransaccionOld.equals(idTransaccionNew)) {
                 idTransaccionOld.getTransaccionProductoList().remove(transaccionProducto);
                 idTransaccionOld = em.merge(idTransaccionOld);
@@ -150,12 +169,14 @@ public class TransaccionProductoJpaController implements Serializable {
             }
             for (Devolucion devolucionListNewDevolucion : devolucionListNew) {
                 if (!devolucionListOld.contains(devolucionListNewDevolucion)) {
-                    TransaccionProducto oldIdTransaccionProductoOfDevolucionListNewDevolucion = devolucionListNewDevolucion.getIdTransaccionProducto();
-                    devolucionListNewDevolucion.setIdTransaccionProducto(transaccionProducto);
-                    devolucionListNewDevolucion = em.merge(devolucionListNewDevolucion);
-                    if (oldIdTransaccionProductoOfDevolucionListNewDevolucion != null && !oldIdTransaccionProductoOfDevolucionListNewDevolucion.equals(transaccionProducto)) {
-                        oldIdTransaccionProductoOfDevolucionListNewDevolucion.getDevolucionList().remove(devolucionListNewDevolucion);
-                        oldIdTransaccionProductoOfDevolucionListNewDevolucion = em.merge(oldIdTransaccionProductoOfDevolucionListNewDevolucion);
+                TransaccionProducto oldIdTransaccionProductoOfDevolucionListNewDevolucion 
+                = devolucionListNewDevolucion.getIdTransaccionProducto();
+                devolucionListNewDevolucion.setIdTransaccionProducto(transaccionProducto);
+                devolucionListNewDevolucion = em.merge(devolucionListNewDevolucion);
+                if (oldIdTransaccionProductoOfDevolucionListNewDevolucion != null 
+                && !oldIdTransaccionProductoOfDevolucionListNewDevolucion.equals(transaccionProducto)) {
+                oldIdTransaccionProductoOfDevolucionListNewDevolucion.getDevolucionList().remove(devolucionListNewDevolucion);
+                oldIdTransaccionProductoOfDevolucionListNewDevolucion = em.merge(oldIdTransaccionProductoOfDevolucionListNewDevolucion);
                     }
                 }
             }
@@ -175,6 +196,13 @@ public class TransaccionProductoJpaController implements Serializable {
             }
         }
     }
+    
+    /**
+     * Esta funcion permite eliminar un objeto relacion entre producto y 
+     * transaccion alojado en la base de datos.
+     * @param id identificador del objeto transaccionProducto a eliminar.
+     */
+
 
     public void destroy(Integer id) throws IllegalOrphanException, NonexistentEntityException {
         EntityManager em = null;
@@ -194,7 +222,8 @@ public class TransaccionProductoJpaController implements Serializable {
                 if (illegalOrphanMessages == null) {
                     illegalOrphanMessages = new ArrayList<String>();
                 }
-                illegalOrphanMessages.add("This TransaccionProducto (" + transaccionProducto + ") cannot be destroyed since the Devolucion " + devolucionListOrphanCheckDevolucion + " in its devolucionList field has a non-nullable idTransaccionProducto field.");
+                illegalOrphanMessages.add("This TransaccionProducto (" + transaccionProducto + ") cannot be destroyed since the Devolucion " 
+                + devolucionListOrphanCheckDevolucion + " in its devolucionList field has a non-nullable idTransaccionProducto field.");
             }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
@@ -241,6 +270,12 @@ public class TransaccionProductoJpaController implements Serializable {
             em.close();
         }
     }
+    
+    /**
+     * Esta funcion permite identificar un objeto relacion entre producto y 
+     * transaccion alojado en la base de datos.
+     * @param id identificador del objeto transaccionProducto a buscar.
+     */
 
     public TransaccionProducto findTransaccionProducto(Integer id) {
         EntityManager em = getEntityManager();
@@ -250,6 +285,11 @@ public class TransaccionProductoJpaController implements Serializable {
             em.close();
         }
     }
+    
+    /**
+     * Esta funcion permite conocer el total de objetos en la relacion
+     * producto y transaccion  alojados en la base de datos.
+     */
 
     public int getTransaccionProductoCount() {
         EntityManager em = getEntityManager();
@@ -264,14 +304,19 @@ public class TransaccionProductoJpaController implements Serializable {
         }
     }
     
-    public List<TransaccionProducto> findTransaccionProductoByIdTransaccion(int id){
+    /**
+     * Esta funcion permite obtener una lista de los 
+     * objetos dados de la relacion producto transaccion alojados en la base de datos.
+     * @param id id del objeto transaccion.
+     */
+    
+    public List<TransaccionProducto> findTransaccionProductoByIdTransaccion(int id) {
         EntityManager em = getEntityManager();
         try {
-            Query q = em.createNativeQuery("SELECT * FROM transaccion_producto where idTransaccion = '"+id+"';", TransaccionProducto.class);  
+            Query q = em.createNativeQuery("SELECT * FROM transaccion_producto where idTransaccion = '" + id + "';", TransaccionProducto.class);  
             return q.getResultList();
         } finally {
             em.close();
         }
     }
-    
 }
