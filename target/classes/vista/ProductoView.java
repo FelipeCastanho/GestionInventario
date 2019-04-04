@@ -3,9 +3,8 @@ package main.java.vista;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-
-import main.java.logica.ProductoLogica;
 import main.java.modelo.Producto;
+import main.java.logica.ProductoLogica;
 
 public class ProductoView extends javax.swing.JPanel {
 

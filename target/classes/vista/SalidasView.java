@@ -12,17 +12,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
-
+import main.java.logica.ProductoLogica;
+import main.java.logica.ReporteLogica;
+import main.java.modelo.Producto;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
-
-import main.java.logica.ProductoLogica;
-import main.java.logica.ReporteLogica;
-import main.java.modelo.Producto;
 
 /**
  *
@@ -135,7 +133,7 @@ public class SalidasView extends javax.swing.JFrame {
                 }
             }    
         }
-        JFreeChart chart = ChartFactory.createLineChart("RelaciÃ³n precio/cantidad",
+        JFreeChart chart = ChartFactory.createLineChart("Relación precio/cantidad",
                 "Cantidad","Precio",line_chart_dataset,PlotOrientation.VERTICAL,
                 true,true,false);
         

@@ -22,7 +22,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
-
 import main.java.logica.DevolucionLogica;
 import main.java.logica.ProductoLogica;
 import main.java.logica.TransaccionLogica;
@@ -188,7 +187,7 @@ public class DevolucionView extends javax.swing.JPanel {
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
         TransaccionLogica trLogica = new TransaccionLogica();
         
-        List<Transaccion> transacciones = new ArrayList<Transaccion>();
+        List<Transaccion> transacciones = new ArrayList<>();
         
         try {
             transacciones = trLogica.buscarTransaccion(jTextFieldNombreCliente.getText(), jDateChooser1.getDate());
@@ -201,7 +200,7 @@ public class DevolucionView extends javax.swing.JPanel {
         
         if(sizeofTransacciones(transacciones) > 0){
            optionList.setSelectedIndex(transacciones.size()- 1);
-           JOptionPane.showMessageDialog(null, optionList, "Selecciona una transacciÃ³n",
+           JOptionPane.showMessageDialog(null, optionList, "Selecciona una transacción",
                JOptionPane.QUESTION_MESSAGE);   
         }else{
             JOptionPane.showMessageDialog(this, "No se encontraron transacciones");
@@ -262,7 +261,7 @@ public class DevolucionView extends javax.swing.JPanel {
     
     private void jButtonRealizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRealizarActionPerformed
         DefaultTableModel modelo = (DefaultTableModel) jTableTablaProductos.getModel();
-        List<TransaccionProducto> listaTransaccionProducto = new ArrayList<TransaccionProducto>();
+        List<TransaccionProducto> listaTransaccionProducto = new ArrayList<>();
         TransaccionProductoLogica tpL = new TransaccionProductoLogica();
         
         for (int i = 0; i < modelo.getRowCount(); i++) {
@@ -302,7 +301,7 @@ public class DevolucionView extends javax.swing.JPanel {
             devolucion.setNombreCliente(jTextFieldNombreCliente.getText());
             dvL.registrarDevolucion(devolucion);   
         }
-        JOptionPane.showMessageDialog(this, "DevoluciÃ³n exitosa");
+        JOptionPane.showMessageDialog(this, "Devolución exitosa");
     }
     
     private void jTextFieldNombreClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNombreClienteActionPerformed

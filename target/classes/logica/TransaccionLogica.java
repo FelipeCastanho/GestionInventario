@@ -8,10 +8,9 @@ package main.java.logica;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-
 import main.java.modelo.Transaccion;
 import main.java.persistencia.TransaccionJpaController;
+import java.util.List;
 
 /**
  *
@@ -29,8 +28,8 @@ public class TransaccionLogica {
     * Primero se valida que los atributos que la componen no esten vacios,
     * Luego, se pasa como parametro a la funcion del JpaController que finalmente la crea.
     * 
-    * @param transaccion {@code Transaccion} que se crear√°
-    * @return el objeto {@code Transaccion} que se cre√≥
+    * @param transaccion {@code Transaccion} que se crear·
+    * @return el objeto {@code Transaccion} que se creÛ
     */
     public Transaccion registrarTransaccion(Transaccion transaccion) throws Exception{
         if (transaccion  == null) throw new Exception("Transaccion vacia");     
@@ -51,7 +50,7 @@ public class TransaccionLogica {
     /**
     * Busca una {@code Transaccion}.
     * Primero se valida que los parametros no sean vacios o nulos,
-    * Luego, se busca la transaccion por fecha y nombre del cliente que realiz√≥.
+    * Luego, se busca la transaccion por fecha y nombre del cliente que realizÛ.
     * 
     * @param nombreCliente {@code String} para comparar
     * @param fecha {@code Date} para comparar
@@ -59,11 +58,11 @@ public class TransaccionLogica {
     */
     public List<Transaccion> buscarTransaccion(String nombreCliente, Date fecha) throws Exception{
         if(nombreCliente.equals("")) throw new Exception("Ingrese el nombre de cliente a buscar");
-        if(fecha == null) throw new Exception("Ingrese la fecha en la que desea buscar la transacci√≥n");
+        if(fecha == null) throw new Exception("Ingrese la fecha en la que desea buscar la transacciÛn");
         SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
         String f = sd.format(fecha);
         List<Transaccion> transacciones = transaccionDAO.findTransaccionByDate(f);
-        List<Transaccion> resultado = new ArrayList<Transaccion>();
+        List<Transaccion> resultado = new ArrayList<>();
         for(int i = 0; i < transacciones.size(); i++) {
            if(transacciones.get(i).getNombreCliente().equals(nombreCliente)){
                resultado.add(transacciones.get(i));

@@ -9,7 +9,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import main.java.modelo.Devolucion;
 import main.java.modelo.Producto;
 import main.java.modelo.Transaccion;
@@ -47,7 +46,7 @@ public class DevolucionLogica {
         }else{
             if(devolucion.getIdTransaccionProducto() == null) throw new Exception("Se debe ingresar un id de transaccion producto"); 
             if(devolucion.getNombreCliente().equals("") || devolucion.getNombreCliente() == null) throw new Exception("Se debe ingresar el nombre del cliente que hace la devolucion");
-            if(devolucion.getFecha() == null) throw new Exception("Se debe ingresar la fecha de la devoluciÃ³n"); 
+            if(devolucion.getFecha() == null) throw new Exception("Se debe ingresar la fecha de la devolución"); 
         }
         
         TransaccionProducto tp = devolucion.getIdTransaccionProducto();
@@ -64,7 +63,7 @@ public class DevolucionLogica {
             tdevolucion = transaccionLogica.registrarTransaccion(tdevolucion);
         }
         
-        List<Producto> productos = new ArrayList<Producto>();
+        List<Producto> productos = new ArrayList<>();
         Producto p = productoLogica.buscarProducto(tp.getIdProducto().getNombre());
         p.setCantidad(tp.getCantidad());
         p.setCosto(tp.getValorUnitario());

@@ -11,7 +11,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-
 import main.java.modelo.Devolucion;
 import main.java.modelo.Producto;
 import main.java.modelo.Transaccion;
