@@ -41,7 +41,7 @@ public class TransaccionProductoJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(TransaccionProducto transaccionProducto) {
+    public TransaccionProducto create(TransaccionProducto transaccionProducto) {
         if (transaccionProducto.getDevolucionList() == null) {
             transaccionProducto.setDevolucionList(new ArrayList<Devolucion>());
         }
@@ -89,6 +89,7 @@ public class TransaccionProductoJpaController implements Serializable {
                 em.close();
             }
         }
+        return transaccionProducto;
     }
 
     public void edit(TransaccionProducto transaccionProducto) throws IllegalOrphanException, NonexistentEntityException, Exception {

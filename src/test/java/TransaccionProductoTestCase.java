@@ -19,6 +19,8 @@ import main.java.logica.TransaccionProductoLogica;
 import main.java.modelo.Producto;
 import main.java.modelo.Transaccion;
 import main.java.modelo.TransaccionProducto;
+import main.java.persistencia.TransaccionJpaController;
+import main.java.persistencia.TransaccionProductoJpaController;
 
 public class TransaccionProductoTestCase {
 
@@ -28,11 +30,12 @@ public class TransaccionProductoTestCase {
 	private List<Producto> listaProductos;
 	private ProductoLogica ProductoLogica;
 	private TransaccionLogica transaccionLogica;
+	private TransaccionProductoJpaController transaccionAux;
 
 	@Before
 	public void setUp() throws Exception {
 		//Se crean los objetos para los test posteriores
-
+		transaccionAux = new TransaccionProductoJpaController();
 		Calendar calendario = new GregorianCalendar();
         Date fecha = calendario.getTime();
         Transaccion tr = new Transaccion();
@@ -68,15 +71,6 @@ public class TransaccionProductoTestCase {
 		ProductoLogica = null;
 		transaccionLogica = null;
 	}
-
-	@Test
-	public void testRegistrar() {
-		try {
-			transaccionProductoLogica.registrarTransaccionProductos(listaProductos, transaccion);
-		} catch (Exception e) {
-			fail(e.getMessage());
-		}
-	}
 	
 	@Test
 	public void testRegistrarProductosError() {
@@ -95,16 +89,6 @@ public class TransaccionProductoTestCase {
 			fail("Error al crear una transaccion producto");
 		} catch (Exception e) {
 			assertEquals(e.getMessage(), "Ingrese un id de transaccion correcto");
-		}
-	}
-	
-	@Test 
-	public void testRegistrarTransaccionSalida() {
-		try {
-			transaccion.setTipo("SALIDA");
-			transaccionProductoLogica.registrarTransaccionProductos(listaProductos, transaccion);		
-		} catch (Exception e) {
-			fail("Error al crear una transaccion producto");
 		}
 	}
 	
@@ -132,19 +116,6 @@ public class TransaccionProductoTestCase {
 	public void testBuscarTransaccionProducto() {
 		try {
 			transaccionProductoLogica.buscarTransaccionProducto(1);
-		} catch (Exception e) {
-			fail("Error al buscar una transaccionProducto");
-		}
-	}
-	
-	@Test
-	public void testModificarTransaccionProducto() {
-		try {
-			TransaccionProducto transaccionProducto = transaccionProductoLogica.buscarTransaccionProducto(1);
-			transaccionProducto.setCantidad(200);
-			transaccionProductoLogica.modificarTransaccionProducto(transaccionProducto);
-			TransaccionProducto transaccionProductoAux = transaccionProductoLogica.buscarTransaccionProducto(1);
-			assertEquals(transaccionProductoAux, transaccionProducto);
 		} catch (Exception e) {
 			fail("Error al buscar una transaccionProducto");
 		}
