@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package main.java.vista;
 
 import java.awt.BorderLayout;
@@ -11,9 +12,9 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
-import  main.java.logica.ProductoLogica;
-import  main.java.logica.ReporteLogica;
-import  main.java.modelo.Producto;
+import main.java.logica.ProductoLogica;
+import main.java.logica.ReporteLogica;
+import main.java.modelo.Producto;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -21,50 +22,68 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
- * 	
- * @author danri
+ * Esta es la clase que maneja las transacciones de entrada de productos al inventario. 
+ * @author jhon.
  */
 public class EntradasView extends javax.swing.JFrame {
 
     /**
-     * Creates new form EntradasView
+     * Constructor de la clase principal donde se inicializan los objetos del programa.
+     * 
      */
     public EntradasView() throws Exception {
         initComponents();
         this.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         cargarReporte();
     }
-    
-    public void cargarReporte() throws Exception{
+
+
+
+    /**
+     * metodo encargado de crear los reportes de entrada.
+     */
+    public void cargarReporte() throws Exception {
         ReporteLogica rpL = new ReporteLogica();
         int[][] entradas = rpL.reporteBasicoTransacciones("ENTRADA");
-        if(entradas.length > 0){
+        if (entradas.length > 0) {
             cincoMasEntradas(entradas);
             mayorMenorEntrada(entradas);
             totalEntradas(entradas);
             grafica(entradas);
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Datos insuficientes para generar reporte");
         }
     }
-    
-    public void cincoMasEntradas(int[][] entradas) throws Exception{
+
+
+
+    /**
+     * metodo encargado de validar si existes cinco o mas transacciones de entrada.
+     * 
+     */
+    public void cincoMasEntradas(int[][] entradas) throws Exception {
         ciclo: {
             for (int i = 0; i < entradas.length; i++) {
-                if(entradas[i][1] > 0){
+                if (entradas[i][1] > 0) {
                     DefaultTableModel modelo = (DefaultTableModel) jTableMayorEntrada.getModel();
                     Producto producto = buscarProducto(entradas[i][0]);
-                    Object filaNueva[] = {producto.getNombre(), entradas[i][1], entradas[i][2], entradas[i][3]};
+                    Object[] filaNueva = { producto.getNombre(), entradas[i][1], entradas[i][2], entradas[i][3] };
                     modelo.addRow(filaNueva); 
                 }
-                if(i > 5){
+                if (i > 5) {
                     break ciclo;
                 }
             }
         }
     }
-    
-    public void mayorMenorEntrada(int[][] entradas) throws Exception{
+ 
+
+
+    /**
+     * metodo encargado de determinar la transaccion de entrada mayor o entrada menor.
+     * 
+     */
+    public void mayorMenorEntrada(int[][] entradas) throws Exception {
         Producto mayorEntrada = null;
         Producto menorEntrada = null;
         String entradaMayor = "";
@@ -74,18 +93,18 @@ public class EntradasView extends javax.swing.JFrame {
         
         ciclo: {
             for (int i = 0; i < entradas.length; i++) {
-                if(i == 0){
-                    if(entradas[i][1] > 0){
+                if (i == 0) {
+                    if (entradas[i][1] > 0) {
                         mayorEntrada = buscarProducto(entradas[0][0]);
                         entradaMayor = mayorEntrada.getNombre();
                         costoMayor = entradas[0][3] + "";   
                     }
-                }else if(entradas[i][1] == 0){
+                } else if (entradas[i][1] == 0) {
                     menorEntrada = buscarProducto(entradas[i - 1][0]);
                     entradaMenor = menorEntrada.getNombre();
-                    costoMenor = entradas[i-1][3] + ""; 
+                    costoMenor = entradas[i - 1][3] + ""; 
                     break ciclo;
-                }else if(i == (entradas.length - 1)){
+                } else if (i == (entradas.length - 1)) {
                     menorEntrada = buscarProducto(entradas[i][0]);
                     entradaMenor = menorEntrada.getNombre();
                     costoMenor = entradas[i][3] + ""; 
@@ -94,17 +113,23 @@ public class EntradasView extends javax.swing.JFrame {
             }
         }
         DefaultTableModel modelo = (DefaultTableModel) jTableMayorMenorEntrada.getModel();
-        Object filaNueva[] = {entradaMayor, costoMayor, entradaMenor, costoMenor};
+        Object[] filaNueva = { entradaMayor, costoMayor, entradaMenor, costoMenor };
         modelo.addRow(filaNueva); 
     }
-    
-    public void totalEntradas(int[][] entradas){
+
+
+
+    /**
+     * metodo encargado de determinar la totalidad de las transacciones de entrada.
+     * 
+     */
+    public void totalEntradas(int[][] entradas) {
         int totalProductos = 0;
         int costoTotal = 0;
         
-        ciclo :{
+        ciclo : {
             for (int i = 0; i < entradas.length; i++) {
-                if(entradas[i][1] != 0){
+                if (entradas[i][1] != 0) {
                     totalProductos++;
                     costoTotal += entradas[i][3];
                 }
@@ -112,26 +137,32 @@ public class EntradasView extends javax.swing.JFrame {
         }
         
         DefaultTableModel modelo = (DefaultTableModel) jTableTotalEntradaCostos.getModel();
-        Object filaNueva[] = {totalProductos, costoTotal};
+        Object[] filaNueva = { totalProductos, costoTotal };
         modelo.addRow(filaNueva);
     }
-    
-    public void grafica(int[][] entradas) throws Exception{
+   
+
+
+    /**
+     * Metodo encargado de generar las graficas de los repotes.
+     * 
+     */
+    public void grafica(int[][] entradas) throws Exception {
         
         jPanelGrafica.setLayout(new java.awt.BorderLayout());
         DefaultCategoryDataset line_chart_dataset = new DefaultCategoryDataset();
 
         ciclo: {
             for (int i = 0; i < entradas.length; i++) {
-                if(entradas[i][1] != 0){
+                if (entradas[i][1] != 0) {
                     Producto producto = buscarProducto(entradas[i][0]);
                     line_chart_dataset.addValue(entradas[i][1], "cantidad", producto.getNombre());
-                }else{
+                } else {
                     break ciclo;
                 }
             }    
         }
-        JFreeChart chart = ChartFactory.createLineChart("Relación precio/cantidad",
+        JFreeChart chart = ChartFactory.createLineChart("RelaciÃ³n precio/cantidad",
                 "Cantidad","Precio",line_chart_dataset,PlotOrientation.VERTICAL,
                 true,true,false);
         
@@ -139,8 +170,14 @@ public class EntradasView extends javax.swing.JFrame {
        jPanelGrafica.add(panel,BorderLayout.CENTER);
        jPanelGrafica.validate();
     }
-    
-    public Producto buscarProducto(int id) throws Exception{
+
+
+
+    /**
+     * Metodo encargado de buscar un producto por su id en la base de datos.
+     * 
+     */
+    public Producto buscarProducto(int id) throws Exception {
         ProductoLogica pL = new ProductoLogica();
         Producto producto = pL.buscarProductoID(id);
         return producto;
@@ -241,7 +278,8 @@ public class EntradasView extends javax.swing.JFrame {
                     .addGroup(jPanelEntradasLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanelEntradasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, 
+                           javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
                             .addComponent(jScrollPane3)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(jPanelEntradasLayout.createSequentialGroup()
@@ -294,7 +332,8 @@ public class EntradasView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanelEntradas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanelEntradas, javax.swing.GroupLayout.Alignment.TRAILING, 
+                    javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanelGrafica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -302,19 +341,23 @@ public class EntradasView extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanelEntradas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanelEntradas, javax.swing.GroupLayout.PREFERRED_SIZE, 
+                javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanelGrafica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(6, 6, 6))
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    } // </editor-fold>//GEN-END:initComponents
+
+
 
     /**
-     * @param args the command line arguments
+     * funcion principal main de la clase desde donde se cargan los componentes.
+     * 
      */
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.

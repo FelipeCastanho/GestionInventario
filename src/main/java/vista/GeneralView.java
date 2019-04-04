@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package main.java.vista;
 
 import java.awt.BorderLayout;
@@ -25,13 +26,14 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 
 /**
- *
- * @author danri
+ * Esta es la clase que maneja las tareas generales del programa.
+ * @author jhon.
  */
 public class GeneralView extends javax.swing.JFrame {
 
     /**
-     * Creates new form GeneralView
+     * Constructor de la clase principal donde se inicializan los objetos del programa.
+     * 
      */
     public GeneralView() throws Exception {
         initComponents();
@@ -39,105 +41,126 @@ public class GeneralView extends javax.swing.JFrame {
         cargarReporte();
     }
     
-    public void cargarReporte() throws Exception{
+    /**
+     * Metodo para generar reportes de entrada y salida.
+     */    
+    public void cargarReporte() throws Exception {
         ReporteLogica rpL = new ReporteLogica();
         int[][] salidas = rpL.reporteBasicoTransacciones("SALIDA");
         int[][] entradas = rpL.reporteBasicoTransacciones("ENTRADA");
         int[][] productos = rpL.reporteBasicoProductos();
-        if(salidas.length > 0){
+        if (salidas.length > 0) {
            cincoMasSalidas(salidas);
            cincoMasEntradas(entradas);
            cincoMenosSalidas(salidas);
            cincoMenosEntradas(entradas);
            grafica(productos);   
            jLabelTotalDevoluciones.setText(rpL.cantidadDevoluciones() + "");
-        }else{
+         } else {
             JOptionPane.showMessageDialog(null, "Datos insuficientes para generar reporte");
         }
     }
     
-    public void cincoMasSalidas(int[][] salidas) throws Exception{
+    /**
+     * metodo que verifica si existe cinco o mas transacciones de salida.
+     */ 
+    public void cincoMasSalidas(int[][] salidas) throws Exception {
         ciclo: {
             for (int i = 0; i < salidas.length; i++) {
-                if(salidas[i][1] > 0){
+                if (salidas[i][1] > 0) {
                     DefaultTableModel modelo = (DefaultTableModel) jTableMayorSalidaGeneral.getModel();
                     Producto producto = buscarProducto(salidas[i][0]);
-                    Object filaNueva[] = {producto.getNombre(), salidas[i][1], salidas[i][2], salidas[i][3]};
+                    Object[] filaNueva = { producto.getNombre(), salidas[i][1], salidas[i][2], salidas[i][3] };
                     modelo.addRow(filaNueva); 
                 }
-                if(i > 5){
+                if (i > 5) {
                     break ciclo;
                 }
             }
         }
     }
     
-    public void cincoMenosSalidas(int[][] salidas) throws Exception{
+    /**
+     * Metodo para verificar hay transacciones de salida menores a 5.
+     */ 
+    public void cincoMenosSalidas(int[][] salidas) throws Exception {
         int contador = 0;
         ciclo: {
             for (int i = salidas.length - 1; i >= 0; i--) {
-                if(salidas[i][1] > 0){
+                if (salidas[i][1] > 0) {
                     DefaultTableModel modelo = (DefaultTableModel) jTableMenorSalidaGeneral.getModel();
                     Producto producto = buscarProducto(salidas[i][0]);
-                    Object filaNueva[] = {producto.getNombre(), salidas[i][1], salidas[i][2], salidas[i][3]};
+                    Object[] filaNueva = { producto.getNombre(), salidas[i][1], salidas[i][2], salidas[i][3] };
                     modelo.addRow(filaNueva); 
                     contador++;
                 }
-                if(contador > 5){
+                if (contador > 5) {
                     break ciclo;
                 }
             }
         }
     }
     
-    public void cincoMenosEntradas(int[][] entradas) throws Exception{
+    /**
+     * Metodo para verificar si hay menos de 5 transacciones de entrada.
+     */ 
+    public void cincoMenosEntradas(int[][] entradas) throws Exception {
         int contador = 0;
         ciclo: {
             for (int i = entradas.length - 1; i >= 0; i--) {
-                if(entradas[i][1] > 0){
+                if (entradas[i][1] > 0) {
                     DefaultTableModel modelo = (DefaultTableModel) jTableMenorEntradaGeneral.getModel();
                     Producto producto = buscarProducto(entradas[i][0]);
-                    Object filaNueva[] = {producto.getNombre(), entradas[i][1], entradas[i][2], entradas[i][3]};
+                    Object[] filaNueva = { producto.getNombre(), entradas[i][1], entradas[i][2], entradas[i][3] };
                     modelo.addRow(filaNueva); 
                     contador++;
                 }
-                if(contador > 5){
+                if (contador > 5) {
                     break ciclo;
                 }
             }
         }
     }
     
-    public void cincoMasEntradas(int[][] entradas) throws Exception{
+    /**
+     * Metodo para verificar las cinco mas transacciones de entrada.
+     */ 
+    public void cincoMasEntradas(int[][] entradas) throws Exception {
         ciclo: {
             for (int i = 0; i < entradas.length; i++) {
-                if(entradas[i][1] > 0){
+                if (entradas[i][1] > 0) {
                     DefaultTableModel modelo = (DefaultTableModel) jTableMayorEntradaGeneral.getModel();
                     Producto producto = buscarProducto(entradas[i][0]);
-                    Object filaNueva[] = {producto.getNombre(), entradas[i][1], entradas[i][2], entradas[i][3]};
+                    Object[] filaNueva = {producto.getNombre(), entradas[i][1], entradas[i][2], entradas[i][3]};
                     modelo.addRow(filaNueva); 
                 }
-                if(i > 5){
+                if (i > 5) {
                     break ciclo;
                 }
             }
         }
     }
     
-    public Producto buscarProducto(int id) throws Exception{
-        ProductoLogica pL = new ProductoLogica();
-        Producto producto = pL.buscarProductoID(id);
+    /**
+     * Metodo para buscar un producto por su id de la BD.
+     */ 
+    public Producto buscarProducto(int id) throws Exception {
+        ProductoLogica pl = new ProductoLogica();
+        Producto producto = pl.buscarProductoID(id);
         return producto;
     }
     
-    public void grafica(int[][] productos) throws Exception{
+    /**
+     * Metodo para graficar en el panel.
+     */ 
+    public void grafica(int[][] productos) throws Exception {
         
         jPanel1.setLayout(new java.awt.BorderLayout());
 
         Producto caro = buscarProducto(productos[0][0]);
         Producto barato = buscarProducto(productos[1][0]);
         
-        if(caro != null && barato != null){
+        if (caro != null && barato != null) {
             
             DefaultPieDataset data = new DefaultPieDataset();
             data.setValue(caro.getNombre(), productos[0][1]);
@@ -145,7 +168,7 @@ public class GeneralView extends javax.swing.JFrame {
 
             // Creando el Grafico
             JFreeChart chart = ChartFactory.createPieChart(
-             "Gr·fica precio productos", 
+             "Gr√°fica precio productos", 
              data, 
              true, 
              true, 
@@ -197,7 +220,6 @@ public class GeneralView extends javax.swing.JFrame {
 
         jTableMayorEntradaGeneral.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
             },
             new String [] {
                 "Producto", "Entradas", "Costo actual", "Total ventas"
@@ -381,19 +403,20 @@ public class GeneralView extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanelEntradas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanelEntradas, javax.swing.GroupLayout.PREFERRED_SIZE, 
+                javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    } // </editor-fold>//GEN-END:initComponents
 
     /**
-     * @param args the command line arguments
+     * metodo principal.
      */
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.

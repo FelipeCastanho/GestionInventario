@@ -1,3 +1,4 @@
+
 package main.java.vista;
 
 import java.util.logging.Level;
@@ -6,15 +7,22 @@ import javax.swing.JOptionPane;
 import main.java.modelo.Producto;
 import main.java.logica.ProductoLogica;
 
+/**
+ * Esta es la clase relacionada con la consulta de los productos.
+ * como tambien agregar los mismos, modificar y eliminar los mismos.
+ * @author jhon.
+ */
+
 public class ProductoView extends javax.swing.JPanel {
 
-    /**
-     * Creates new form ProductoView
-     */
+
     Producto producto;
     ProductoLogica productoLogica;
-    
-    public ProductoView() {
+
+    /**
+     * Constructor de la clase donde se inicializan los componentes.
+     */        
+    public ProductoView() { 
         producto = new Producto();
         productoLogica = new ProductoLogica();
         initComponents();
@@ -116,7 +124,8 @@ public class ProductoView extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextFieldCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField_NombreProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField_NombreProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, 
+                            javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jTextField_Costo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
@@ -131,15 +140,18 @@ public class ProductoView extends javax.swing.JPanel {
                 .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField_NombreProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField_NombreProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 
+                 javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextFieldCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 
+                 javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField_Costo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField_Costo, javax.swing.GroupLayout.PREFERRED_SIZE, 
+                   javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton_BorrarCampos))
                 .addGap(52, 52, 52)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -149,9 +161,9 @@ public class ProductoView extends javax.swing.JPanel {
                     .addComponent(jButton_Eliminar))
                 .addContainerGap(132, Short.MAX_VALUE))
         );
-    }// </editor-fold>//GEN-END:initComponents
+    } // </editor-fold>//GEN-END:initComponents
 
-    private void jButton_RegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_RegistrarActionPerformed
+    private void jButton_RegistrarActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_jButton_RegistrarActionPerformed
      
         String nombre = jTextField_NombreProducto.getText();
         String cantidad = jTextFieldCantidad.getText();
@@ -166,26 +178,25 @@ public class ProductoView extends javax.swing.JPanel {
             
             productoLogica.registrarProducto(producto);
             JOptionPane.showMessageDialog(this, "Se registro con exito");
-        }catch (Exception ex) {
+        } catch (Exception ex) {
              JOptionPane.showMessageDialog(this, "Error no se pudo crear el producto");
         }
-    }//GEN-LAST:event_jButton_RegistrarActionPerformed
+    } //GEN-LAST:event_jButton_RegistrarActionPerformed
 
-    private void jButton_ConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ConsultarActionPerformed
+    private void jButton_ConsultarActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_jButton_ConsultarActionPerformed
         String nombreEquipo = jTextField_NombreProducto.getText();
         ProductoLogica productoLogica = new ProductoLogica();
         Producto producto = new Producto();
         
-        if(jTextField_NombreProducto.getText().isEmpty()){
-            JOptionPane.showMessageDialog(this, "El campo Nombre Producto no debe estar vacio");
-        }
-        else{
+        if (jTextField_NombreProducto.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El campo Nombre Producto no debe estar vacio"); 
+        } else {
             try {
                 
                 producto = productoLogica.buscarProducto(nombreEquipo);
                 jTextField_NombreProducto.setText(producto.getNombre());
                 jTextFieldCantidad.setText(String.valueOf(producto.getCantidad()));
-                jTextField_Costo.setText( String.valueOf(producto.getCosto()));
+                jTextField_Costo.setText(String.valueOf(producto.getCosto()));
                 
             
             } catch (Exception ex) {
@@ -193,25 +204,25 @@ public class ProductoView extends javax.swing.JPanel {
             }
         }
         
-    }//GEN-LAST:event_jButton_ConsultarActionPerformed
+    } //GEN-LAST:event_jButton_ConsultarActionPerformed
 
     
-    private void jButton_BorrarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_BorrarCamposActionPerformed
+    private void jButton_BorrarCamposActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_jButton_BorrarCamposActionPerformed
         
         jTextField_NombreProducto.setText(" ");
         jTextFieldCantidad.setText(" ");
         jTextField_Costo.setText(" ");
-    }//GEN-LAST:event_jButton_BorrarCamposActionPerformed
+    } //GEN-LAST:event_jButton_BorrarCamposActionPerformed
 
-    private void jButton_ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ModificarActionPerformed
+    private void jButton_ModificarActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_jButton_ModificarActionPerformed
         String nombreProducto = jTextField_NombreProducto.getText();
         ProductoLogica productoLogica = new ProductoLogica();
         Producto producto = new Producto();
-        int nuevaCantidad,nuevoCosto;
-        if(jTextField_NombreProducto.getText().isEmpty()){
+        int nuevaCantidad;
+        int nuevoCosto;
+        if (jTextField_NombreProducto.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "El campo Nombre Producto no debe estar vacio");
-        }
-        else{
+        } else {
             try {    
                 producto = productoLogica.buscarProducto(nombreProducto);
                 nuevaCantidad = Integer.parseInt(jTextFieldCantidad.getText());
@@ -222,16 +233,15 @@ public class ProductoView extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "No se pudo modificar el producto");
             }            
         }
-    }//GEN-LAST:event_jButton_ModificarActionPerformed
+    } //GEN-LAST:event_jButton_ModificarActionPerformed
 
-    private void jButton_EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_EliminarActionPerformed
+    private void jButton_EliminarActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_jButton_EliminarActionPerformed
         String nombreProducto = jTextField_NombreProducto.getText();
         ProductoLogica productoLogica = new ProductoLogica();
         Producto producto = new Producto();
-        if(jTextField_NombreProducto.getText().isEmpty()){
+        if (jTextField_NombreProducto.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "El campo Nombre Producto no debe estar vacio");
-        }
-        else{
+        } else {
             try {    
                 producto = productoLogica.buscarProducto(nombreProducto);
                 productoLogica.eliminarProducto(producto);
@@ -244,7 +254,7 @@ public class ProductoView extends javax.swing.JPanel {
             }            
         }
     
-    }//GEN-LAST:event_jButton_EliminarActionPerformed
+    } //GEN-LAST:event_jButton_EliminarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

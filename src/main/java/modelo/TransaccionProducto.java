@@ -70,8 +70,8 @@ public class TransaccionProducto implements Serializable {
     /**
      * Esta función crea un objeto transaccionProducto.
      * @param id identificador de la transaccionProducto.
-     * @param cantidad, cantidad de un producto que hay en un transaccion.
-     * @param valor unitario, valor del producto al momneto de hacer la transacción.
+     * @param cantidad de un producto que hay en un transaccion.
+     * @param valorUnitario del producto al momento de hacer la transacción.
      */
     public TransaccionProducto(Integer id, int cantidad, int valorUnitario) {
         this.id = id;
@@ -137,7 +137,6 @@ public class TransaccionProducto implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof TransaccionProducto)) {
             return false;
         }
