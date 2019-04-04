@@ -124,7 +124,7 @@ public class TransaccionProductoTestCase {
 			transaccionProductoLogica.validarDisponibilidadProductos(listaProductos);
 			fail("Error al validar disponbilidad de productos cuando se encuentras agotados");
 		} catch (Exception e) {			
-			assertEquals(e.getMessage(), "Solo se encuentran disponibles 1000und. del producto: Producto1");
+			assertEquals(e.getMessage(), "Solo se encuentran disponibles 100und. del producto: Producto1");
 		}
 	}
 	
