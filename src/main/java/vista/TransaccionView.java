@@ -3,13 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-<<<<<<< HEAD:src/vista/TransaccionView.java
-
-package vista;
-
-=======
 package main.java.vista;
->>>>>>> feature/testsTransaccionProducto:src/main/java/vista/TransaccionView.java
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,32 +15,21 @@ import javax.swing.table.DefaultTableModel;
 //import javax.swing.table.JTableHeader;
 //import javax.swing.table.TableColumn;
 //import javax.swing.table.TableColumnModel;
-<<<<<<< HEAD:src/vista/TransaccionView.java
-import logica.ProductoLogica;
-import logica.TransaccionLogica;
-import logica.TransaccionProductoLogica;
-import modelo.Producto;
-import modelo.Transaccion;
-
-=======
 import main.java.logica.ProductoLogica;
 import main.java.logica.TransaccionLogica;
 import main.java.logica.TransaccionProductoLogica;
 import main.java.modelo.Producto;
 import main.java.modelo.Transaccion;
 import main.java.modelo.TransaccionProducto;
->>>>>>> feature/testsTransaccionProducto:src/main/java/vista/TransaccionView.java
 
 /**
- * Esta es la clase principal encargada de gestionar lo relacioanda a la transacciones.
- * de los productos que se encuentran en inventario.
- * @author jhon.
+ *
+ * @author jhon
  */
 public class TransaccionView extends javax.swing.JPanel {
 
     /**
-     * Constructor de la clase donde se inicializan todos los componentes.
-     * 
+     * Creates new form TransaccionView
      */
     public TransaccionView() {
         initComponents();
@@ -58,28 +41,19 @@ public class TransaccionView extends javax.swing.JPanel {
     }
     
 
-/**
-* metodo encargado de limpiar la informacion de la tabla.
-* 
-*/
-public void limpiarTabla() {
+    
+public void limpiarTabla(){
     DefaultTableModel tb = (DefaultTableModel) jTableTablaProductos.getModel();
-    int a = jTableTablaProductos.getRowCount() - 1;
+    int a = jTableTablaProductos.getRowCount()-1;
     for (int i = a; i >= 0; i--) {           
-        tb.removeRow(tb.getRowCount() - 1);
+        tb.removeRow(tb.getRowCount()-1);
     } 
     }
-
-/**
- * Metodo encargado de agregar la información a una tabla.
- * 
- */
-public void cargarTabla(Producto producto) {
-        
-    DefaultTableModel modelo = (DefaultTableModel) jTableTablaProductos.getModel();
-    Object[] filaNueva = { producto.getId(),producto.getNombre(),producto.getCantidad(),producto.getCosto() };
-    modelo.addRow(filaNueva);
     
+public void cargarTabla(Producto producto){
+    DefaultTableModel modelo = (DefaultTableModel) jTableTablaProductos.getModel();
+    Object filaNueva[] = {producto.getId(), producto.getNombre(), producto.getCantidad(), producto.getCosto()};
+    modelo.addRow(filaNueva);
 }
     
 
@@ -126,16 +100,9 @@ public void cargarTabla(Producto producto) {
                 "ID Producto", "Nombre", "Cantidad", "Costo"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
             boolean[] canEdit = new boolean [] {
                 false, true, true, false
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -194,18 +161,15 @@ public void cargarTabla(Producto producto) {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jDateChooser_FechaTransaccion, javax.swing.GroupLayout.PREFERRED_SIZE, 113, 
-                                    javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 
-                                    javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jDateChooser_FechaTransaccion, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jTextField_NombreProducto))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton_buscar))))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jButton_RegistrarTransaccion)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 
-                         javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton_borrarTabla))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(59, Short.MAX_VALUE))
@@ -220,20 +184,16 @@ public void cargarTabla(Producto producto) {
                             .addComponent(jLabel1)
                             .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField_NombreCliente, 
-                     javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jDateChooser_FechaTransaccion, 
-                     javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTextField_NombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jDateChooser_FechaTransaccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox_TipoTransaccion, 
-                   javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField_NombreProducto, 
-                   javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox_TipoTransaccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField_NombreProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton_buscar))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
@@ -245,27 +205,27 @@ public void cargarTabla(Producto producto) {
                     .addComponent(jButton_borrarTabla))
                 .addContainerGap(99, Short.MAX_VALUE))
         );
-    } // </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton_buscarActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_jButton_buscarActionPerformed
+    private void jButton_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_buscarActionPerformed
         ProductoLogica pLogica = new ProductoLogica();
         Producto producto =  new Producto();
         List<Producto> listaproductos = pLogica.listarProductos();
         List<Producto> listaproductosFilrada = new ArrayList<>();
         String nombre = jTextField_NombreProducto.getText();
         
-        for (int i = 0;i < listaproductos.size();i++) {
-            if (listaproductos.get(i).getNombre().equals(nombre) && listaproductos.get(i).getEstado().equals("DISPONIBLE")) {
+        for(int i=0;i<listaproductos.size();i++){
+            if(listaproductos.get(i).getNombre().equals(nombre) && listaproductos.get(i).getEstado().equals("DISPONIBLE")){
                 listaproductosFilrada.add(listaproductos.get(i));
             }
         }
         Object[] options = comboBoxPane(listaproductosFilrada);
         JComboBox optionList = new JComboBox(options);
-        if (sizeofListaProductos(listaproductosFilrada) > 0) {
-            optionList.setSelectedIndex(listaproductosFilrada.size() - 1);
+        if(sizeofListaProductos(listaproductosFilrada) > 0){
+            optionList.setSelectedIndex(listaproductosFilrada.size()- 1);
             JOptionPane.showMessageDialog(null, optionList, "Selecciona un producto",
             JOptionPane.QUESTION_MESSAGE);   
-        } else {
+        }else{
             JOptionPane.showMessageDialog(this, "No se encontraron productos");
         }
         
@@ -275,14 +235,14 @@ public void cargarTabla(Producto producto) {
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "No se encontraron productos");
         }                
-    } //GEN-LAST:event_jButton_buscarActionPerformed
+    }//GEN-LAST:event_jButton_buscarActionPerformed
 
-    private void jButton_borrarTablaActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_jButton_borrarTablaActionPerformed
+    private void jButton_borrarTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_borrarTablaActionPerformed
         // TODO add your handling code here:
         limpiarTabla();
-    } //GEN-LAST:event_jButton_borrarTablaActionPerformed
+    }//GEN-LAST:event_jButton_borrarTablaActionPerformed
 
-    private void jButton_RegistrarTransaccionActionPerformed(java.awt.event.ActionEvent evt) { 
+    private void jButton_RegistrarTransaccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_RegistrarTransaccionActionPerformed
         Transaccion transaccion = new Transaccion();
         ProductoLogica pLogica =  new ProductoLogica();
         TransaccionLogica tLogica =  new TransaccionLogica();
@@ -301,8 +261,8 @@ public void cargarTabla(Producto producto) {
         DefaultTableModel modelo = (DefaultTableModel) jTableTablaProductos.getModel();
         for (int i = 0; i < modelo.getRowCount(); i++) {
             try {
-                Producto p = pLogica.buscarProductoID((int) jTableTablaProductos.getValueAt(i,0));
-                p.setCantidad((int) jTableTablaProductos.getValueAt(i,2));
+                Producto p = pLogica.buscarProductoID(Integer.parseInt(jTableTablaProductos.getValueAt(i, 0).toString()));
+                p.setCantidad(Integer.parseInt(jTableTablaProductos.getValueAt(i, 2).toString()));
                 listaproductos.add(p);
             } catch (Exception ex) {
                 Logger.getLogger(TransaccionView.class.getName()).log(Level.SEVERE, null, ex);
@@ -310,13 +270,6 @@ public void cargarTabla(Producto producto) {
             
         }
         
-<<<<<<< HEAD:src/vista/TransaccionView.java
-        
-        try {
-            tLogica.registrarTransaccion(transaccion);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "No se pudo registrar la transaccion ");
-=======
         if(jTextField_NombreCliente.getText() != null && jDateChooser_FechaTransaccion.getDate() != null){
             try {
                 tLogica.registrarTransaccion(transaccion);
@@ -334,32 +287,22 @@ public void cargarTabla(Producto producto) {
             }
         }else{
             JOptionPane.showMessageDialog(null, "Por favor llene todos los campos");
->>>>>>> feature/testsTransaccionProducto:src/main/java/vista/TransaccionView.java
         }
-        
-        
-        try {
-            tpLogica.registrarTransaccionProductos(listaproductos, transaccion);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "No se pudo registrar los productos asociados a esa transaccion ");
-        }
-    } //GEN-LAST:event_jButton_RegistrarTransaccionActionPerformed
+            
+    }//GEN-LAST:event_jButton_RegistrarTransaccionActionPerformed
 
-/**
-* metodo encargado de desplegar la información de la lista desplegable.
-* 
-*/
-public Object[] comboBoxPane(List<Producto> listaProductos) {
+public Object[] comboBoxPane(List<Producto> listaProductos){
     Object[] options = new Object[listaProductos.size()];
     
     for (int i = 0; i < listaProductos.size(); i++) {
-        options[i] = listaProductos.get(i).getNombre() + ", " + listaProductos.get(i).getCantidad() + ", " + listaProductos.get(i).getCosto();
+        options[i] = listaProductos.get(i).getNombre() + ", " + listaProductos.get(i).getCantidad() +
+                ", " + listaProductos.get(i).getCosto();
     }
     
     return options;
 }  
 
-public int sizeofListaProductos(List<Producto> listaProductos) {
+public int sizeofListaProductos(List<Producto> listaProductos){
     return listaProductos.size();
 }
     

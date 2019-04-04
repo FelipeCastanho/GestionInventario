@@ -1,8 +1,3 @@
-<<<<<<< HEAD:src/persistencia/TransaccionJpaController.java
-package persistencia;
-
-import java.io.Serializable;
-=======
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -16,58 +11,34 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import main.java.modelo.TransaccionProducto;
->>>>>>> feature/testsTransaccionProducto:src/main/java/persistencia/TransaccionJpaController.java
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityNotFoundException;
 import javax.persistence.Persistence;
-<<<<<<< HEAD:src/persistencia/TransaccionJpaController.java
-import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-import modelo.Transaccion;
-import modelo.TransaccionProducto;
-import persistencia.exceptions.IllegalOrphanException;
-import persistencia.exceptions.NonexistentEntityException;
-=======
 import main.java.modelo.Transaccion;
 import main.java.persistencia.exceptions.IllegalOrphanException;
 import main.java.persistencia.exceptions.NonexistentEntityException;
->>>>>>> feature/testsTransaccionProducto:src/main/java/persistencia/TransaccionJpaController.java
 
 /**
- * Esta clase es la persistencia que se comunica con el modelo Transaccion y su respectiva base de datos.
+ *
  * @author Felipe
  */
-
 public class TransaccionJpaController implements Serializable {
 
     public TransaccionJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
-    
     private EntityManagerFactory emf = null;
 
-<<<<<<< HEAD:src/persistencia/TransaccionJpaController.java
-    public TransaccionJpaController() {
-        this.emf = Persistence.createEntityManagerFactory("TallerGestionInventarioPU");
-=======
     public TransaccionJpaController(){
         this.emf = Persistence.createEntityManagerFactory("GestionInventarioPU");
->>>>>>> feature/testsTransaccionProducto:src/main/java/persistencia/TransaccionJpaController.java
     }
     
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
-    /**
-     * Esta funcion crea una transaccion en la base de datos.
-     * @param transaccion objeto transaccion a crear.
-     */
-    
     public Transaccion create(Transaccion transaccion) {
         if (transaccion.getTransaccionProductoList() == null) {
             transaccion.setTransaccionProductoList(new ArrayList<TransaccionProducto>());
@@ -78,23 +49,18 @@ public class TransaccionJpaController implements Serializable {
             em.getTransaction().begin();
             List<TransaccionProducto> attachedTransaccionProductoList = new ArrayList<TransaccionProducto>();
             for (TransaccionProducto transaccionProductoListTransaccionProductoToAttach : transaccion.getTransaccionProductoList()) {
-                transaccionProductoListTransaccionProductoToAttach = 
-                em.getReference(transaccionProductoListTransaccionProductoToAttach.getClass(), 
-                transaccionProductoListTransaccionProductoToAttach.getId());
+                transaccionProductoListTransaccionProductoToAttach = em.getReference(transaccionProductoListTransaccionProductoToAttach.getClass(), transaccionProductoListTransaccionProductoToAttach.getId());
                 attachedTransaccionProductoList.add(transaccionProductoListTransaccionProductoToAttach);
             }
             transaccion.setTransaccionProductoList(attachedTransaccionProductoList);
             em.persist(transaccion);
             for (TransaccionProducto transaccionProductoListTransaccionProducto : transaccion.getTransaccionProductoList()) {
-                Transaccion oldIdTransaccionOfTransaccionProductoListTransaccionProducto = 
-                transaccionProductoListTransaccionProducto.getIdTransaccion();
+                Transaccion oldIdTransaccionOfTransaccionProductoListTransaccionProducto = transaccionProductoListTransaccionProducto.getIdTransaccion();
                 transaccionProductoListTransaccionProducto.setIdTransaccion(transaccion);
                 transaccionProductoListTransaccionProducto = em.merge(transaccionProductoListTransaccionProducto);
                 if (oldIdTransaccionOfTransaccionProductoListTransaccionProducto != null) {
-                    oldIdTransaccionOfTransaccionProductoListTransaccionProducto.getTransaccionProductoList()
-                    .remove(transaccionProductoListTransaccionProducto);
-                    oldIdTransaccionOfTransaccionProductoListTransaccionProducto 
-                    = em.merge(oldIdTransaccionOfTransaccionProductoListTransaccionProducto);
+                    oldIdTransaccionOfTransaccionProductoListTransaccionProducto.getTransaccionProductoList().remove(transaccionProductoListTransaccionProducto);
+                    oldIdTransaccionOfTransaccionProductoListTransaccionProducto = em.merge(oldIdTransaccionOfTransaccionProductoListTransaccionProducto);
                 }
             }
             em.getTransaction().commit();
@@ -106,11 +72,6 @@ public class TransaccionJpaController implements Serializable {
         
         return transaccion;
     }
-    
-    /**
-     * Esta funcion permite modificar una transaccion alojada en la base de datos.
-     * @param transaccion objeto transaccion a modificar.
-     */
 
     public void edit(Transaccion transaccion) throws IllegalOrphanException, NonexistentEntityException, Exception {
         EntityManager em = null;
@@ -126,8 +87,7 @@ public class TransaccionJpaController implements Serializable {
                     if (illegalOrphanMessages == null) {
                         illegalOrphanMessages = new ArrayList<String>();
                     }
-                    illegalOrphanMessages.add("You must retain TransaccionProducto " + transaccionProductoListOldTransaccionProducto 
-                    + " since its idTransaccion field is not nullable.");
+                    illegalOrphanMessages.add("You must retain TransaccionProducto " + transaccionProductoListOldTransaccionProducto + " since its idTransaccion field is not nullable.");
                 }
             }
             if (illegalOrphanMessages != null) {
@@ -135,9 +95,7 @@ public class TransaccionJpaController implements Serializable {
             }
             List<TransaccionProducto> attachedTransaccionProductoListNew = new ArrayList<TransaccionProducto>();
             for (TransaccionProducto transaccionProductoListNewTransaccionProductoToAttach : transaccionProductoListNew) {
-                transaccionProductoListNewTransaccionProductoToAttach = 
-                em.getReference(transaccionProductoListNewTransaccionProductoToAttach.getClass(), 
-                transaccionProductoListNewTransaccionProductoToAttach.getId());
+                transaccionProductoListNewTransaccionProductoToAttach = em.getReference(transaccionProductoListNewTransaccionProductoToAttach.getClass(), transaccionProductoListNewTransaccionProductoToAttach.getId());
                 attachedTransaccionProductoListNew.add(transaccionProductoListNewTransaccionProductoToAttach);
             }
             transaccionProductoListNew = attachedTransaccionProductoListNew;
@@ -145,16 +103,12 @@ public class TransaccionJpaController implements Serializable {
             transaccion = em.merge(transaccion);
             for (TransaccionProducto transaccionProductoListNewTransaccionProducto : transaccionProductoListNew) {
                 if (!transaccionProductoListOld.contains(transaccionProductoListNewTransaccionProducto)) {
-                    Transaccion oldIdTransaccionOfTransaccionProductoListNewTransaccionProducto = 
-                    transaccionProductoListNewTransaccionProducto.getIdTransaccion();
+                    Transaccion oldIdTransaccionOfTransaccionProductoListNewTransaccionProducto = transaccionProductoListNewTransaccionProducto.getIdTransaccion();
                     transaccionProductoListNewTransaccionProducto.setIdTransaccion(transaccion);
                     transaccionProductoListNewTransaccionProducto = em.merge(transaccionProductoListNewTransaccionProducto);
-                    if (oldIdTransaccionOfTransaccionProductoListNewTransaccionProducto != null 
-                    && !oldIdTransaccionOfTransaccionProductoListNewTransaccionProducto.equals(transaccion)) {
-                    oldIdTransaccionOfTransaccionProductoListNewTransaccionProducto.getTransaccionProductoList()
-                    .remove(transaccionProductoListNewTransaccionProducto);
-                    oldIdTransaccionOfTransaccionProductoListNewTransaccionProducto = 
-                    em.merge(oldIdTransaccionOfTransaccionProductoListNewTransaccionProducto);
+                    if (oldIdTransaccionOfTransaccionProductoListNewTransaccionProducto != null && !oldIdTransaccionOfTransaccionProductoListNewTransaccionProducto.equals(transaccion)) {
+                        oldIdTransaccionOfTransaccionProductoListNewTransaccionProducto.getTransaccionProductoList().remove(transaccionProductoListNewTransaccionProducto);
+                        oldIdTransaccionOfTransaccionProductoListNewTransaccionProducto = em.merge(oldIdTransaccionOfTransaccionProductoListNewTransaccionProducto);
                     }
                 }
             }
@@ -174,11 +128,6 @@ public class TransaccionJpaController implements Serializable {
             }
         }
     }
-    
-    /**
-     * Esta funcion permite eliminar una transaccion alojada en la base de datos.
-     * @param id identificador del objeto transaccion a eliminar.
-     */
 
     public void destroy(Integer id) throws IllegalOrphanException, NonexistentEntityException {
         EntityManager em = null;
@@ -198,9 +147,7 @@ public class TransaccionJpaController implements Serializable {
                 if (illegalOrphanMessages == null) {
                     illegalOrphanMessages = new ArrayList<String>();
                 }
-                illegalOrphanMessages.add("This Transaccion (" + transaccion + ") cannot be destroyed since the TransaccionProducto " 
-                + transaccionProductoListOrphanCheckTransaccionProducto 
-                + " in its transaccionProductoList field has a non-nullable idTransaccion field.");
+                illegalOrphanMessages.add("This Transaccion (" + transaccion + ") cannot be destroyed since the TransaccionProducto " + transaccionProductoListOrphanCheckTransaccionProducto + " in its transaccionProductoList field has a non-nullable idTransaccion field.");
             }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
@@ -237,11 +184,6 @@ public class TransaccionJpaController implements Serializable {
             em.close();
         }
     }
-    
-    /**
-     * Esta funcion permite identificar una transaccion alojada en la base de datos.
-     * @param id identificador del objeto transaccion a identificar.
-     */
 
     public Transaccion findTransaccion(Integer id) {
         EntityManager em = getEntityManager();
@@ -252,10 +194,6 @@ public class TransaccionJpaController implements Serializable {
         }
     }
 
-    /**
-     * Esta funcion permite conocer el total de transacciones alojadas en la base de datos.
-     */
-    
     public int getTransaccionCount() {
         EntityManager em = getEntityManager();
         try {
@@ -269,17 +207,10 @@ public class TransaccionJpaController implements Serializable {
         }
     }
     
-    /**
-     * Esta funcion permite obtener una lista de las transacciones alojadas en la base de datos
-     * en una fecha en especifico.
-     * @param fecha fecha del objeto transaccion.
-     */
-    
     public List<Transaccion> findTransaccionByDate(String fecha) {
         EntityManager em = getEntityManager();
         try {
-            Query q = em.createNativeQuery("SELECT * FROM transaccion where fecha >= '" + fecha + " 00:00:00' AND fecha <= '" + fecha + " 23:59:59';",
-            Transaccion.class);  
+            Query q = em.createNativeQuery("SELECT * FROM transaccion where fecha >= '"+fecha+" 00:00:00' AND fecha <= '"+fecha+" 23:59:59';", Transaccion.class);  
             return q.getResultList();
         } finally {
             em.close();

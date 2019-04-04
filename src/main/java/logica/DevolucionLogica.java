@@ -3,12 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-<<<<<<< HEAD:src/logica/DevolucionLogica.java
-
-package logica;
-=======
 package main.java.logica;
->>>>>>> feature/testsTransaccionProducto:src/main/java/logica/DevolucionLogica.java
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,20 +15,16 @@ import main.java.modelo.Transaccion;
 import main.java.modelo.TransaccionProducto;
 import main.java.persistencia.DevolucionJpaController;
 /**
- * Esta clase representa la logica de una devolución de un pedido realizado anteriormente.
+ *
  * @author aleji
  */
-
 public class DevolucionLogica {
     DevolucionJpaController devolucionDAO;
     TransaccionLogica transaccionLogica;
     TransaccionProductoLogica transaccionProductoLogica;
     ProductoLogica productoLogica;
     
-    /**
-    * Constructor de {@code Devolucion}.
-    */
-    public DevolucionLogica() {
+    public DevolucionLogica(){
         devolucionDAO = new DevolucionJpaController();
         transaccionLogica = new TransaccionLogica();
         transaccionProductoLogica = new TransaccionProductoLogica();
@@ -49,26 +40,13 @@ public class DevolucionLogica {
     * 
     * @param devolucion la {@code Devolucion} con los datos: Fecha, TransaccionProducto y Cliente. 
     */
-    public void registrarDevolucion(Devolucion devolucion) throws Exception {
-        if (devolucion == null) {
+    public void registrarDevolucion(Devolucion devolucion) throws Exception{
+        if(devolucion == null){
             throw new Exception("Devolucion vacia");  
-<<<<<<< HEAD:src/logica/DevolucionLogica.java
-        } else {
-            if (devolucion.getIdTransaccionProducto() == null) {
-            	throw new Exception("Se debe ingresar un id de transaccion producto");
-            }
-            if (devolucion.getNombreCliente().equals("") || devolucion.getNombreCliente() == null) {
-            	throw new Exception("Se debe ingresar el nombre del cliente que hace la devolucion");
-            }
-            if (devolucion.getFecha() == null) {
-            	throw new Exception("Se debe ingresar la fecha de la devolucion"); 
-            }
-=======
         }else{
             if(devolucion.getIdTransaccionProducto() == null) throw new Exception("Se debe ingresar un id de transaccion producto"); 
             if(devolucion.getNombreCliente().equals("") || devolucion.getNombreCliente() == null) throw new Exception("Se debe ingresar el nombre del cliente que hace la devolucion");
             if(devolucion.getFecha() == null) throw new Exception("Se debe ingresar la fecha de la devolución"); 
->>>>>>> feature/testsTransaccionProducto:src/main/java/logica/DevolucionLogica.java
         }
         
         TransaccionProducto tp = devolucion.getIdTransaccionProducto();
@@ -77,10 +55,10 @@ public class DevolucionLogica {
         Transaccion tdevolucion = new Transaccion();
         tdevolucion.setNombreCliente(devolucion.getNombreCliente());
         tdevolucion.setFecha(devolucion.getFecha());
-        if (t.getTipo().equals("SALIDA")) {
+        if(t.getTipo().equals("SALIDA")){
             tdevolucion.setTipo("ENTRADA");
             tdevolucion = transaccionLogica.registrarTransaccion(tdevolucion);
-        } else if (t.getTipo().equals("ENTRADA")) {
+        }else if(t.getTipo().equals("ENTRADA")){
             tdevolucion.setTipo("SALIDA");
             tdevolucion = transaccionLogica.registrarTransaccion(tdevolucion);
         }
@@ -109,14 +87,14 @@ public class DevolucionLogica {
     * @param fecha {@code Date} para comparar
     * @return la lista de {@code Devolucion} filtradas con los parametros
     */
-    public List<Devolucion> buscarDevolucion(String nombreCliente, Date fecha) {
+    public List<Devolucion> buscarDevolucion(String nombreCliente, Date fecha){
         SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
         String f = sd.format(fecha);
         List<Devolucion> devoluciones = devolucionDAO.findDevolucionByDate(f);
         
         List<Devolucion> resultado = new ArrayList<>();
-        for (int i = 0; i < devoluciones.size(); i++) {
-           if (devoluciones.get(i).getNombreCliente().equals(nombreCliente)) {
+        for(int i = 0; i < devoluciones.size(); i++) {
+           if(devoluciones.get(i).getNombreCliente().equals(nombreCliente)){
                resultado.add(devoluciones.get(i));
            } 
         }
@@ -129,7 +107,7 @@ public class DevolucionLogica {
     * 
     * @return la lista de todos las {@code Devoluciones}
     */ 
-    public List<Devolucion> listarDevoluciones() {
+    public List<Devolucion> listarDevoluciones(){
         return devolucionDAO.findDevolucionEntities();
     }
 }

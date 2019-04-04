@@ -70,7 +70,7 @@ public class Transaccion implements Serializable {
      * Esta función crea un objeto transacción.
      * @param id identificador de la transacción.
      * @param nombreCliente nombre completo del cliente a quien se le asigna la devolución.
-     * @param tipo determina si es una transaccion de entrada (compra) o de salida (venta).
+     * @param tipo, determina si es una transaccion de entrada (compra) o de salida (venta).
      * @param fecha en que se hace una devolución.
      */
     public Transaccion(Integer id, String nombreCliente, String tipo, Date fecha) {
@@ -130,6 +130,7 @@ public class Transaccion implements Serializable {
 
     @Override
     public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Transaccion)) {
             return false;
         }

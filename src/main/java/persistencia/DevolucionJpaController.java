@@ -1,21 +1,17 @@
-<<<<<<< HEAD:src/persistencia/DevolucionJpaController.java
-package persistencia;
-=======
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package main.java.persistencia;
->>>>>>> feature/testsTransaccionProducto:src/main/java/persistencia/DevolucionJpaController.java
 
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import main.java.modelo.Devolucion;
@@ -23,35 +19,23 @@ import main.java.modelo.TransaccionProducto;
 import main.java.persistencia.exceptions.NonexistentEntityException;
 
 /**
- * Esta clase es la persistencia que se comunica con el modelo Devolucion y su respectiva base de datos.
+ *
  * @author Felipe
  */
-
 public class DevolucionJpaController implements Serializable {
 
-	public DevolucionJpaController(EntityManagerFactory emf) {
-		this.emf = emf;
-	}
-
+    public DevolucionJpaController(EntityManagerFactory emf) {
+        this.emf = emf;
+    }
     private EntityManagerFactory emf = null;
     
-<<<<<<< HEAD:src/persistencia/DevolucionJpaController.java
-    public DevolucionJpaController() {
-        this.emf = Persistence.createEntityManagerFactory("TallerGestionInventarioPU");
-=======
     public DevolucionJpaController(){
         this.emf = Persistence.createEntityManagerFactory("GestionInventarioPU");
->>>>>>> feature/testsTransaccionProducto:src/main/java/persistencia/DevolucionJpaController.java
     }
-    
+
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
-
-    /**
-     * Esta funcion crea una devolucion en la base de datos a traves de una transaccion.
-     * @param devolucion objeto devolucion a crear.
-     */
 
     public void create(Devolucion devolucion) {
         EntityManager em = null;
@@ -75,12 +59,6 @@ public class DevolucionJpaController implements Serializable {
             }
         }
     }
-   
-    
-    /**
-     * Esta funcion permite modificar una devolucion alojada en la base de datos.
-     * @param devolucion objeto devolucion a modificar.
-     */
 
     public void edit(Devolucion devolucion) throws NonexistentEntityException, Exception {
         EntityManager em = null;
@@ -119,11 +97,6 @@ public class DevolucionJpaController implements Serializable {
             }
         }
     }
-    
-    /**
-     * Esta funcion permite eliminar una devolucion alojada en la base de datos.
-     * @param id identificador del objeto devolucion a eliminar.
-     */
 
     public void destroy(Integer id) throws NonexistentEntityException {
         EntityManager em = null;
@@ -174,11 +147,6 @@ public class DevolucionJpaController implements Serializable {
             em.close();
         }
     }
-    
-    /**
-     * Esta funcion permite identificar una devolucion alojada en la base de datos.
-     * @param id objeto devolucion.
-     */
 
     public Devolucion findDevolucion(Integer id) {
         EntityManager em = getEntityManager();
@@ -188,10 +156,6 @@ public class DevolucionJpaController implements Serializable {
             em.close();
         }
     }
-    
-    /**
-     * Esta funcion permite conocer el total de devoluciones alojadas en la base de datos.
-     */
 
     public int getDevolucionCount() {
         EntityManager em = getEntityManager();
@@ -206,17 +170,10 @@ public class DevolucionJpaController implements Serializable {
         }
     }
     
-    /**
-     * Esta funcion permite obtener una lista de las devoluciones alojadas en la base de datos
-     * en una fecha en especifico.
-     * @param fecha fecha del objeto devolucion.
-     */
-    
     public List<Devolucion> findDevolucionByDate(String fecha) {
         EntityManager em = getEntityManager();
         try {
-            Query q = em.createNativeQuery("SELECT * FROM devolucion where fecha >= '" + fecha + " 00:00:00' AND fecha <= '" + fecha + " 23:59:59';", 
-            Devolucion.class);
+            Query q = em.createNativeQuery("SELECT * FROM devolucion where fecha >= '"+fecha+" 00:00:00' AND fecha <= '"+fecha+" 23:59:59';", Devolucion.class);  
             return q.getResultList();
         } finally {
             em.close();

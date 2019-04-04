@@ -3,12 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-<<<<<<< HEAD:src/vista/SalidasView.java
-
-package vista;
-=======
 package main.java.vista;
->>>>>>> feature/testsTransaccionProducto:src/main/java/vista/SalidasView.java
 
 import java.awt.BorderLayout;
 import java.util.logging.Level;
@@ -28,14 +23,13 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
- * Esta es la clase que encargada de las transacciones de salida.
- * @author jhon.
+ *
+ * @author danri
  */
 public class SalidasView extends javax.swing.JFrame {
 
     /**
-     * Constructor de la clase principal donde se inicializan los objetos del programa.
-     * 
+     * Creates new form SalidasView
      */
     public SalidasView() throws Exception {
         initComponents();
@@ -43,49 +37,36 @@ public class SalidasView extends javax.swing.JFrame {
         cargarReporte();
     }
     
-    /**
-     * metodo que carga un reporte de salida.
-     * 
-     */
-    public void cargarReporte() throws Exception {
+    public void cargarReporte() throws Exception{
         ReporteLogica rpL = new ReporteLogica();
         int[][] salidas = rpL.reporteBasicoTransacciones("SALIDA");
-        if (salidas.length > 0) {
+        if(salidas.length > 0){
            cincoMasSalidas(salidas);
            mayorMenorSalida(salidas);
            totalSalidas(salidas);
            grafica(salidas);   
-        } else {
+        }else{
             JOptionPane.showMessageDialog(null, "Datos insuficientes para generar reporte");
         }
     }
     
-    /**
-     * metodo que verifica cinco o mas transacciones de salida.
-     * 
-     */
-    
-    public void cincoMasSalidas(int[][] salidas) throws Exception {
+    public void cincoMasSalidas(int[][] salidas) throws Exception{
         ciclo: {
             for (int i = 0; i < salidas.length; i++) {
-                if (salidas[i][1] > 0) {
+                if(salidas[i][1] > 0){
                     DefaultTableModel modelo = (DefaultTableModel) jTableMayorSalida.getModel();
                     Producto producto = buscarProducto(salidas[i][0]);
-                    Object[] filaNueva = { producto.getNombre(), salidas[i][1], salidas[i][2], salidas[i][3] };
+                    Object filaNueva[] = {producto.getNombre(), salidas[i][1], salidas[i][2], salidas[i][3]};
                     modelo.addRow(filaNueva); 
                 }
-                if (i > 5) {
+                if(i > 5){
                     break ciclo;
                 }
             }
         }
     }
     
-    /**
-     * metodo que calcula la mayor o la menor transaccion de salida.
-     * 
-     */
-    public void mayorMenorSalida(int[][] salidas) throws Exception {
+    public void mayorMenorSalida(int[][] salidas) throws Exception{
         Producto mayorSalida = null;
         Producto menorSalida = null;
         String salidaMayor = "";
@@ -95,18 +76,18 @@ public class SalidasView extends javax.swing.JFrame {
         
         ciclo: {
             for (int i = 0; i < salidas.length; i++) {
-                if (i == 0) {
-                    if (salidas[i][1] > 0) {
+                if(i == 0){
+                    if(salidas[i][1] > 0){
                         mayorSalida = buscarProducto(salidas[0][0]);
                         salidaMayor = mayorSalida.getNombre();
                         costoMayor = salidas[0][3] + "";   
                     }
-                } else if (salidas[i][1] == 0) {
+                }else if(salidas[i][1] == 0){
                         menorSalida = buscarProducto(salidas[i - 1][0]);
                         salidaMenor = menorSalida.getNombre();
-                        costoMenor = salidas[i - 1][3] + ""; 
+                        costoMenor = salidas[i-1][3] + ""; 
                         break ciclo;
-                } else if (i == (salidas.length - 1)) {
+                }else if(i == (salidas.length - 1)){
                     menorSalida = buscarProducto(salidas[i][0]);
                     salidaMenor = menorSalida.getNombre();
                     costoMenor = salidas[i][3] + ""; 
@@ -115,21 +96,17 @@ public class SalidasView extends javax.swing.JFrame {
             }
         }
         DefaultTableModel modelo = (DefaultTableModel) jTableMayorMenorSalida.getModel();
-        Object[] filaNueva = {salidaMayor, costoMayor, salidaMenor, costoMenor};
+        Object filaNueva[] = {salidaMayor, costoMayor, salidaMenor, costoMenor};
         modelo.addRow(filaNueva); 
     }
     
-    /**
-     * metodo que calcula el total de las transacciones de salida.
-     * 
-     */
-    public void totalSalidas(int[][] salidas) {
+    public void totalSalidas(int[][] salidas){
         int totalProductos = 0;
         int costoTotal = 0;
         
-        ciclo : {
+        ciclo :{
             for (int i = 0; i < salidas.length; i++) {
-                if (salidas[i][1] != 0) {
+                if(salidas[i][1] != 0){
                     totalProductos++;
                     costoTotal += salidas[i][3];
                 }
@@ -137,25 +114,21 @@ public class SalidasView extends javax.swing.JFrame {
         }
         
         DefaultTableModel modelo = (DefaultTableModel) jTableTotalSalidaCostos.getModel();
-        Object[] filaNueva = {totalProductos, costoTotal};
+        Object filaNueva[] = {totalProductos, costoTotal};
         modelo.addRow(filaNueva);
     }
     
-    /**
-     * metodo para construir una grafica de reporte.
-     * 
-     */
-    public void grafica(int[][] salidas) throws Exception {
+    public void grafica(int[][] salidas) throws Exception{
         
         jPanelGrafica.setLayout(new java.awt.BorderLayout());
         DefaultCategoryDataset line_chart_dataset = new DefaultCategoryDataset();
 
         ciclo: {
             for (int i = 0; i < salidas.length; i++) {
-                if (salidas[i][1] != 0) {
+                if(salidas[i][1] != 0){
                     Producto producto = buscarProducto(salidas[i][0]);
                     line_chart_dataset.addValue(salidas[i][1], "cantidad", producto.getNombre());
-                } else {
+                }else{
                     break ciclo;
                 }
             }    
@@ -169,13 +142,9 @@ public class SalidasView extends javax.swing.JFrame {
        jPanelGrafica.validate();
     }
     
-    /**
-     * Metodo para buscar un producto pro su id desde la BD.
-     * 
-     */
-    public Producto buscarProducto(int id) throws Exception {
-        ProductoLogica pl = new ProductoLogica();
-        Producto producto = pl.buscarProductoID(id);
+    public Producto buscarProducto(int id) throws Exception{
+        ProductoLogica pL = new ProductoLogica();
+        Producto producto = pL.buscarProductoID(id);
         return producto;
     }
 
@@ -205,6 +174,7 @@ public class SalidasView extends javax.swing.JFrame {
 
         jTableMayorSalida.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+
             },
             new String [] {
                 "Producto", "Salidas", "Costo actual", "Total ventas"
@@ -274,8 +244,7 @@ public class SalidasView extends javax.swing.JFrame {
                     .addGroup(jPanelSalidasLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanelSalidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, 
-                            		javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
                             .addComponent(jScrollPane3)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(jPanelSalidasLayout.createSequentialGroup()
@@ -337,19 +306,17 @@ public class SalidasView extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanelSalidas, javax.swing.GroupLayout.PREFERRED_SIZE, 
-               javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanelSalidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelGrafica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         pack();
-    } // </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * metodo principal de la clase donde se cargan los componentes.
-     * 
+     * @param args the command line arguments
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
