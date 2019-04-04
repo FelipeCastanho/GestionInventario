@@ -69,10 +69,4 @@ public class ProductoTestCase {
 		Producto productoEncontradoPorId = productoLogica.buscarProductoID(id);
 		assertEquals(productoEncontrado, productoEncontradoPorId);
 	}
-	
-	@Test
-	public void testListarProductos() {
-		List productos = productoLogica.listarProductos();
-		assertEquals(11, productos.size());
-	}
 }
