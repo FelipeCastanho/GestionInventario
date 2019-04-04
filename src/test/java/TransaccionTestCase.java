@@ -60,12 +60,6 @@ public class TransaccionTestCase {
 	}
 	
 	@Test
-	public void testListarTransaccion() throws Exception {
-		int transaccionesEncontradas = transaccionL.buscarTransaccion("Alejandra Aguiar", date).size();
-		assertEquals(1, transaccionesEncontradas);
-	}
-	
-	@Test
 	public void testBusarTransaccion() throws Exception {
 		transaccionL.registrarTransaccion(transaccion2);
 		Transaccion transaccionEncontrada = transaccionL.buscarTransaccion("Alejandra Aguiar", date).get(0);
