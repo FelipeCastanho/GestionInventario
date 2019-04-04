@@ -73,6 +73,6 @@ public class ProductoTestCase {
 	@Test
 	public void testListarProductos() {
 		List productos = productoLogica.listarProductos();
-		assertEquals(5, productos.size());
+		assertEquals(11, productos.size());
 	}
 }
