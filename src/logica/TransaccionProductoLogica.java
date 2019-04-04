@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package logica;
 
 import java.util.List;
@@ -12,14 +13,14 @@ import modelo.TransaccionProducto;
 import persistencia.TransaccionProductoJpaController;
 
 /**
- *
+ * Esta clase representa la logica de una TransaccionProducto teniendo en cuenta funciones como: buscar, crear, modificar y eliminar.
  * @author aleji
  */
 public class TransaccionProductoLogica {
     TransaccionProductoJpaController transaccionProductoDAO;
     ProductoLogica productoLogica;
     
-    public TransaccionProductoLogica(){
+    public TransaccionProductoLogica() {
         transaccionProductoDAO = new TransaccionProductoJpaController();
         productoLogica = new ProductoLogica();
     }
@@ -33,19 +34,23 @@ public class TransaccionProductoLogica {
     * @param productos {@code List<Producto>} que contiene todos los productos de la transaccion
     * @param objTransaccion {@code Transaccion} que contiene el id y tipo necesarios
     */
-    public void registrarTransaccionProductos(List<Producto> productos, Transaccion objTransaccion) throws Exception{
-        if (productos  == null) throw new Exception("Lista de productos vacio, por favor ingrese los productos");
-        if (objTransaccion == null) throw new Exception("Ingrese un id de transaccion correcto");
+    public void registrarTransaccionProductos(List<Producto> productos, Transaccion objTransaccion) throws Exception {
+        if (productos  == null) {
+        	throw new Exception("Lista de productos vacio, por favor ingrese los productos");
+        }
+        if (objTransaccion == null) {
+        	throw new Exception("Ingrese un id de transaccion correcto");
+        }
         
         boolean tipo = false;
-        if(objTransaccion.getTipo().equals("ENTRADA")){
+        if (objTransaccion.getTipo().equals("ENTRADA")) {
             validarRegistroProductos(productos);
             tipo =  true;
-        }else if(objTransaccion.getTipo().equals("SALIDA")){
+        } else if (objTransaccion.getTipo().equals("SALIDA")) {
             validarDisponibilidadProductos(productos);
         }
         
-        for(int i = 0; i < productos.size(); i++){
+        for (int i = 0; i < productos.size(); i++) {
            Producto pdcto = productoLogica.buscarProducto(productos.get(i).getNombre());
            TransaccionProducto trn = new TransaccionProducto();
            trn.setIdProducto(pdcto);
@@ -63,12 +68,11 @@ public class TransaccionProductoLogica {
     * 
     * @param productos {@code List<Producto>} que contiene todos los productos de la transaccion
     */  
-    public void validarDisponibilidadProductos(List<Producto> productos) throws Exception{
-        for(int i = 0; i < productos.size(); i++) {
+    public void validarDisponibilidadProductos(List<Producto> productos) throws Exception {
+        for (int i = 0; i < productos.size(); i++) {
             Producto pdcto = productoLogica.buscarProducto(productos.get(i).getNombre());
-            if(productos.get(i).getCantidad() > pdcto.getCantidad()){
-                throw new Exception("Solo se encuentran disponibles "+pdcto.getCantidad()+"und. del producto: "+
-                        pdcto.getNombre());
+            if (productos.get(i).getCantidad() > pdcto.getCantidad()) {
+                throw new Exception("Solo se encuentran disponibles " + pdcto.getCantidad() + "und. del producto: " + pdcto.getNombre());
             }
         }
     }
@@ -79,23 +83,23 @@ public class TransaccionProductoLogica {
     * 
     * @param productos {@code List<Producto>} que contiene todos los productos de la transaccion
     */  
-    public void validarRegistroProductos(List<Producto> productos) throws Exception{
-        for(int i = 0; i < productos.size(); i++) {
-            try{
+    public void validarRegistroProductos(List<Producto> productos) throws Exception {
+        for (int i = 0; i < productos.size(); i++) {
+            try {
                 productoLogica.buscarProducto(productos.get(i).getNombre());
-            }catch(Exception e){
+            } catch (Exception e) {
                 productoLogica.registrarProducto(productos.get(i));
             }
         }
     }
     
     /**
-    * Lista {@code TransaccionProducto} por el id de la Transacción a la que pertenecen.
+    * Lista {@code TransaccionProducto} por el id de la Transaccion a la que pertenecen.
     * 
     * @param idTransaccion {@code int} para comparar
     * @return {@code List<TransaccionProducto>}
     */ 
-    public List<TransaccionProducto> listarProductosTransaccion(int idTransaccion){
+    public List<TransaccionProducto> listarProductosTransaccion(int idTransaccion) {
         return transaccionProductoDAO.findTransaccionProductoByIdTransaccion(idTransaccion);
     }
     
@@ -106,14 +110,22 @@ public class TransaccionProductoLogica {
     * 
     * @param tp la {@code TransaccionProducto} ya modificada
     */
-    public void modificarTransaccionProducto(TransaccionProducto tp) throws Exception{
-        if(tp == null){
+    public void modificarTransaccionProducto(TransaccionProducto tp) throws Exception {
+        if (tp == null) {
             throw new Exception("La transaccion de producto esta vacia");
-        }else{
-            if(tp.getIdProducto() == null) throw new Exception("Se debe ingresar un id de Producto"); 
-            if(tp.getIdTransaccion() == null) throw new Exception("Se debe ingresar un id de Transaccion");
-            if(tp.getValorUnitario() < 0) throw new Exception("Valor unitario de transaccion producto menor a 0");
-            if(tp.getCantidad() < 0) throw new Exception("Cantidad de transaccion producto menor a 0"); 
+        } else {
+            if (tp.getIdProducto() == null) {
+            	throw new Exception("Se debe ingresar un id de Producto"); 
+            }
+            if (tp.getIdTransaccion() == null) {
+            	throw new Exception("Se debe ingresar un id de Transaccion");
+            }
+            if (tp.getValorUnitario() < 0) {
+            	throw new Exception("Valor unitario de transaccion producto menor a 0");
+            }
+            if (tp.getCantidad() < 0) {
+            	throw new Exception("Cantidad de transaccion producto menor a 0"); 
+            }
         }
         transaccionProductoDAO.edit(tp);
     }
@@ -124,8 +136,10 @@ public class TransaccionProductoLogica {
     * @param id {@code int} para comparar
     * @return {@code TransaccionProducto}
     */ 
-    public TransaccionProducto buscarTransaccionProducto(int id) throws Exception{
-        if(id < 0) throw new Exception("El  id debe ser mayor a 0");
+    public TransaccionProducto buscarTransaccionProducto(int id) throws Exception {
+        if (id < 0) {
+        	throw new Exception("El  id debe ser mayor a 0");
+        }
         return transaccionProductoDAO.findTransaccionProducto(id);
     }
 }

@@ -3,19 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package vista;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author danri
+ * Esta es la clase que encargada del manejo de los reportes del programa.
+ * @author jhon.
  */
 public class ReportesView extends javax.swing.JPanel {
 
     /**
-     * Creates new form Reportes
+     * Constructor de la clase principal donde se inicializan los objetos del programa.
+     * 
      */
     public ReportesView() {
         initComponents();
@@ -78,9 +80,9 @@ public class ReportesView extends javax.swing.JPanel {
                 .addComponent(jButtonGeneral)
                 .addContainerGap(160, Short.MAX_VALUE))
         );
-    }// </editor-fold>//GEN-END:initComponents
+    } // </editor-fold>//GEN-END:initComponents
 
-    private void jButtonSalidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalidasActionPerformed
+    private void jButtonSalidasActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_jButtonSalidasActionPerformed
         try {
             SalidasView salidas = new SalidasView();
             salidas.setVisible(true);
@@ -88,9 +90,9 @@ public class ReportesView extends javax.swing.JPanel {
         } catch (Exception ex) {
             Logger.getLogger(ReportesView.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButtonSalidasActionPerformed
+    } //GEN-LAST:event_jButtonSalidasActionPerformed
 
-    private void jButtonEntradasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEntradasActionPerformed
+    private void jButtonEntradasActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_jButtonEntradasActionPerformed
         try {
             EntradasView entradas = new EntradasView();
             entradas.setVisible(true);
@@ -98,9 +100,9 @@ public class ReportesView extends javax.swing.JPanel {
         } catch (Exception ex) {
             Logger.getLogger(ReportesView.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButtonEntradasActionPerformed
+    } //GEN-LAST:event_jButtonEntradasActionPerformed
 
-    private void jButtonGeneralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGeneralActionPerformed
+    private void jButtonGeneralActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_jButtonGeneralActionPerformed
         try {
             GeneralView general = new GeneralView();
             general.setVisible(true);
@@ -108,7 +110,7 @@ public class ReportesView extends javax.swing.JPanel {
         } catch (Exception ex) {
             Logger.getLogger(ReportesView.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButtonGeneralActionPerformed
+    } //GEN-LAST:event_jButtonGeneralActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
